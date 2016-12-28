@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>{$title}</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/page.css" />
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/Admin/js/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<style>
+  td {
+    text-align: center;
+  }
+   a {
+    color:#333;
+  }
+  .actived{
+    color:#67c1a5;
+  }
+  .col-sm-6 {
+    width: 50%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    outline: none !important;
+    box-sizing: border-box;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333;
+    margin:30px 5px;
+  }
+  .tabbable.inline {
+    margin-bottom: 10px;
+    outline: none !important;
+  }
+  *{
+    outline: none !important;
+  }
+  *, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.tabbable.inline .nav-tabs {
+    margin-bottom: -1px;
+  }
+  .nav-tabs {
+    border-bottom: 1px solid #fff; /* #ddd */
+}
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+.nav > li {
+    position: relative;
+    display: block;
+}
+.tabbable.inline .nav-tabs > li.active > a, .tabbable.inline .nav-tabs > li.active > a:hover, .tabbable.inline .nav-tabs > li.active > a:focus {
+    background-color: #FFFFFF;
+    border-color: #dddddd #dddddd rgba(0, 0, 0, 0);
+    border-top: 1px solid #DDDDDD;
+    color: #333333;
+    line-height: 16px;
+
+}
+.tabbable.inline .nav-tabs > li:first-child > a {
+    margin-left: 0;
+}
+.tabbable.inline .nav-tabs > li > a, .tabbable.inline .nav-tabs > li > a:focus {
+    background-color: #F9F9F9;
+    border-color: #DDDDDD;
+    border-radius: 0 !important;
+    color: #999999;
+    line-height: 16px;
+    margin-right: -1px;
+    position: relative;
+}
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+a, a:hover {
+    text-decoration: none !important;
+}
+p {
+    margin: 0 0 10px;
+}
+.tabbable.inline .tab-content {
+    background-color: #fff;
+    min-width: 700px;
+}
+.tabbable.inline .tab-content {
+    border: 1px solid #DDDDDD;
+    padding: 16px 12px;
+    /*position: relative;*/
+    margin-top: 37px;
+}
+.alert {
+    padding: 10px 15px;
+}
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.tab-content > .tab-pane {
+    display: none;
+}
+.tab-content > .active {
+    display: block;
+}
+
+.nav-tabs .dropdown-menu {
+    margin-top: -1px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    background-clip: padding-box;
+}
+#usertable{
+  width:97%;
+  margin:15px;
+}
+#usertable tr,td,th{
+  border:1px solid #ddd;
+  padding:10px 15px;
+}
+#servicetable{
+  width:97%;
+  margin:15px;
+  font-size: 12px;
+}
+#servicetable tr, td{
+  border:1px solid #ddd;
+  padding:10px 5px;
+  
+}
+.userdiv h2{
+  font-size: 14px;
+  padding-left:15px;
+}
+.userdiv a{
+  font-size: 14px;
+  margin-left:5px;
+  background-color: #19A97B;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color:white;
+  border: 1px solid #19A97B;
+}
+.userdiv a:hover{
+  background-color: #EAEAEA;
+  color:#333;
+  border:1px solid #19A97B;
+}
+.userdiv a:active{
+  border:1px solid #BB60A3;
+  background-color: #BB60A3;
+  color:white;
+}
+#userdivb{
+  padding-bottom: 10px;
+}
+#ercode{
+  width:0px;
+  height:0px;
+  opacity: 0;
+}
+.text-show{
+  width:100%;
+  height:100%;
+  border:0;
+  text-align: center;
+}
+.show2{
+  display: none;
+}
+.meg{
+  display: none;
+  background: rgba(0,0,0,.35);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 102;
+}
+.meginfo{
+  /*width:15%;*/
+  max-width: 405px;
+  /*height:6%;*/
+  margin: 0 auto;
+  padding: 1%;
+  background: #f8f8f8;
+  margin-top: 16%;
+  border-radius: 5px;
+  text-align: center;
+}
+#megbtn{
+  width: 60px;
+  height: 60px;
+  border: 2px solid #67c1a5;
+  border-radius: 100%;
+  float: left;
+  /*margin-left: 5%;*/
+  margin-left: 5%;
+  margin-top: -1%;
+}
+#megbtn h6{
+  color:#67c1a5;
+  font-size: 40px;
+  margin-top:8px;
+  margin-left: 14px;
+}
+#megmeg{
+    line-height: 2em;
+    font-size: 1.9em;
+    margin-left: 15px;
+    position:relative;
+    right:-10px;
+    
+}
+#modify {
+  /*display: block;*/
+}
+.btns{
+  padding:2px 15px;
+  line-height: 20px;
+  height: 28px;
+  width: 35%;
+  margin: 10px 5%;
+}
+.btns:hover{
+  border:1px solid #19A97B;
+}
+#new_pwd{
+  margin-bottom:15px;
+  width: 90%;
+  height: 30px;
+  line-height: 24px;
+}
+#debug{
+  /*margin-bottom: 15px;*/
+  padding-top:10px;
+  color:red;
+}
+#bar{
+  line-height: 4px;
+  margin-top: 10px;
+  margin-left: -15px;
+  margin-bottom: -20px;
+  width:0%;
+  height:5px;
+  background: #19A97B;
+}
+.pay{
+  display: none;
+  background: rgba(0,0,0,.35);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 102;
+}
+.payinfo{
+  width:40%;
+  /*height:6%;*/
+  margin: 0 auto;
+  padding: 2%;
+  background: #f8f8f8;
+  margin-top: 16%;
+  border-radius: 5px;
+  /*text-align: right;*/
+  padding-right:30px;
+}
+.clear{
+  clear:both;
+}
+.payinfo input[type=text],button{
+ margin:10px 15px;
+}
+input[type=text],textarea{
+  font-size: 14px;
+  line-height: 2.042857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  margin-bottom:15px;
+  width:65%;
+}
+input[type=file]{
+  width:0px;
+  height:0px;
+  opacity: 0;
+}
+.filelabel{  
+  border: 1px solid #ccc;
+  padding: 8px 20%;
+  margin: 15px;
+}
+#fg{
+  width:100%;
+  height:30px;
+}
+.fg{
+  width:100%;
+  height:15px;
+}
+.payinfo1{
+  width:40%;
+  /*height:6%;*/
+  margin: 0 auto;
+  padding: 0.5%;
+  background: #f8f8f8;
+  margin-top: 16%;
+  border-radius: 5px;
+  text-align: left;
+  padding-left:30px;
+  max-width: 500px;
+}
+.payinfo1 h3{
+  padding-bottom:10px;
+  font-size:18px;
+  font-weight:700;
+}
+#pay1step_bg{
+  width:80%;
+  height:100px;
+  margin:0 auto;
+}
+#pay1step_bg img{
+  width:120px;
+  height:90px;
+  /*padding:0px 10px;*/
+  margin: 0px 30px;
+}
+#pay1step_bg a:hover img{
+  border:1px solid #19A97B;
+  border-radius:3px;
+}
+#wxpay a,#alipay a{
+  font-size: 14px;
+  /*margin-left:15px;*/
+  background-color: #19A97B;
+  padding: 5px 30px;
+  border-radius: 3px;
+  color:white;
+  margin: 0px 6%;
+  border:1px solid #19A97B;
+}
+#wxpay a:hover,#alipay a:hover{
+  background-color: #EAEAEA;
+  color:#333;
+  border:1px solid #19A97B;
+}
+/*#wxpay a:active, #alipay a:active{
+  background-color: #BB60A3;
+  color:white;
+  border:0;
+}*/
+#fgbig{
+  width:100%;
+  height:30px;
+}
+.payform{
+  width:80%;
+  margin:0 auto;
+  text-align:right;
+}
+#modify-apay-btn,#modify-wpay-btn{
+  display:none;
+}
+.take-m-b{
+  display: none;
+  background: rgba(0,0,0,.35);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.take-m-c{
+  width:40%;
+  /*height:6%;*/
+  margin: 0 auto;
+  padding: 1%;
+  background: #fff;
+  margin-top: 12%;
+  border-radius: 5px;
+  /*text-align: right;*/
+  padding-right:30px;
+  line-height: 45px;
+  min-width:710px;
+}
+.take-m-c td,.take-m-c tr,.take-m-c th{
+  background-color: #fff;
+  border:0;
+  padding:0;
+}
+.take-m-c th{
+  font-size:30px;
+}
+.left{
+  text-align:left;
+}
+.right{
+  width:15%;
+  text-align:right;
+}
+.take-m-c input[type=text]{
+  font-size: 14px;
+  line-height: 2.042857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  /*margin-bottom:15px;*/
+  width:80%;
+  margin:5px 10px;
+}
+#lip{
+  display:none;
+  height: 15px;
+  color: red;
+  position: relative;
+  right: 20px;
+  float: right;
+  top: -135px;
+}
+.form-control{
+  width:80%;
+  height:35px;
+  line-height: 30px;
+  text-align:left;
+  color:#333;
+  border:1px solid #ccc;
+}
+.m-t{
+  margin-bottom:10px;
+  margin-left: 10px;
+}
+.take-m-btn{
+  padding:10px 60px;
+  border:1px solid #19A97B;
+  border-radius:3px;
+}
+.take-m-btn:hover{
+  border:1px solid #19A97B;
+  background-color: #19A97B;
+  color:white;
+}
+#take-cancel{
+  margin-left:15px;
+}
+#take-add-sub{
+  display:none;
+}
+#new-lip{
+  height: 15px;
+  position: relative;
+  right: 25px;
+  float: right;
+  /*top: -280px;*/
+  top:-95px;
+}
+#show-add{
+  padding:5px 10px;
+  border:1px solid #19A97B;
+  border-radius:2px;
+  line-height:30px;
+}
+#show-add:hover{
+  border:1px solid #19A97B;
+  background-color: #19A97B;
+  color:white;
+}
+.add-show{
+  display:none;
+}
+#take-add-cancel{
+  margin-left:15px;
+}
+</style>
+</head>
+<body>
+<!--header-->
+<header>
+ <h1><img src="__PUBLIC__/Admin/images/admin_logo.png"/></h1>
+ <ul class="rt_nav">
+  <!-- <li><a href="http://www.baidu.com" target="_blank" class="website_icon">站点首页</a></li> -->
+  <!-- <li><a href="#" class="admin_icon">DeathGhost</a></li> -->
+  <!-- <li><a href="#" class="set_icon">账号设置</a></li> -->
+  <li><a href="#" class="admin_icon">{$user}</a></li>
+  <li><a href="{:U('Admin/login/logout')}" class="quit_icon">安全退出</a></li>
+ </ul>
+</header>
+
+<!--aside nav-->
+<aside class="lt_aside_nav content mCustomScrollbar">
+ <!-- <h2><a href="index.php">起始页</a></h2> -->
+ <ul>
+  <li>
+   <dl>
+    <dt><a href="{:U('Admin/index/index')}" class="actived">会员中心</a></dt>
+    <dt><a href="{:U('Admin/index/new_program')}">发布新项目</a></dt>
+    <dt><a href="{:U('Admin/index/list_program')}" >项目列表</a></dt>
+    <dt><a href="{:U('Admin/index/sply_show')}">申请管理</a></dt>
+    <!--当前链接则添加class:active-->
+   <!--  <dd><a href="#" class="active">商品列表</a></dd>
+    <dd><a href="#">商品分类</a></dd>
+    <dd><a href="#">商品属性</a></dd>
+    <dd><a href="#">品牌管理</a></dd> -->
+   </dl>
+  </li>
+  
+ </ul>
+</aside>
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+    
+<script>
+  // 页面自带，现废弃
+  $(document).ready(function(){
+    $("#loading").click(function(){
+  	 $(".loading_area").fadeIn();
+     $(".loading_area").fadeOut(1500);
+  	});
+    //点击灰色幕布，退出添加支付方式
+    $("#pay1step").click(function(){
+        $("#pay1step").fadeOut();
+    });
+    // 当select的值变化时，获取其内容
+    var oSelect=document.getElementById("a_bank");
+    oSelect.onchange=function(){                                       //当选项改变时触发
+      // var valOption=this.options[this.selectedIndex].value;//获取option的value
+      // alert(valOption);
+      var txtOption=this.options[this.selectedIndex].innerHTML;//获取option中间的文本
+      // alert(txtOption);
+      document.getElementById("bank_name").value=txtOption;
+    }
+   });
+</script>
+<section class="loading_area">
+  <div class="loading_cont">
+   <div class="loading_icon"><i></i><i></i><i></i><i></i><i></i></div>
+   <div class="loading_txt"><mark>数据正在加载，请稍后！</mark></div>
+  </div>
+</section>
+<!--结束加载-->
+<!--弹出框效果-->
+<script>
+   // 显示二维码等编辑框
+   function show_text(){
+    $('.show1').hide();
+    $('.show2').show();
+   }
+   //提交 。 更新二维码和客服电话QQ信息
+   function sub_text(){
+    $('.show1').show();
+    $('.show2').hide();
+    var url = document.getElementById('ercodeurl').value;
+    var phone = document.getElementById('phone').value;
+    var qq = document.getElementById('qq').value;
+    $.post("update_user",{url:url,phone:phone,qq:qq},function(data){
+      if(data.status == 1){
+        document.getElementById("megmeg").innerHTML="修改成功！";
+        $("#meginfo2").fadeIn();
+        setTimeout(function(){
+           $("#meginfo2").fadeOut();
+           // window.location.reload();
+        },1000);
+        return true;
+      }else{
+        document.getElementById("megimg").innerHTML="X";
+        document.getElementById("megmeg").innerHTML="修改失败！";
+        // document.getElementById("megbtn").style.border="1px solid red";
+        // document.getElementById("megimg").style.color="red";
+        // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+        $("#meginfo2").fadeIn();
+        setTimeout(function(){
+           $("#meginfo2").fadeOut();
+           // $(".back").fadeOut();
+        },1000);
+        return false;
+      }
+    });
+   }
+   // 切换标签1
+   function showtab1(){
+    $("#myTab1").addClass('active');
+    $("#panel_tab2_example1").addClass('active');
+    $("#myTab2").removeClass('active');
+    $("#panel_tab2_example2").removeClass('active');
+    $("#myTab3").removeClass('active');
+    $("#panel_tab2_example3").removeClass('active');
+    $("#myTab4").removeClass('active');
+    $("#panel_tab2_example4").removeClass('active');
+    document.getElementById("bigbox").style.width="60%";
+   }
+   // 切换标签2
+   function showtab2(){
+    $("#myTab2").addClass('active');
+    $("#panel_tab2_example2").addClass('active');
+    $("#myTab1").removeClass('active');
+    $("#panel_tab2_example1").removeClass('active');
+    $("#myTab3").removeClass('active');
+    $("#panel_tab2_example3").removeClass('active');
+    $("#myTab4").removeClass('active');
+    $("#panel_tab2_example4").removeClass('active');
+    document.getElementById("bigbox").style.width="99%";
+   }
+   // 切换标签3
+   function showtab3(){
+    $("#myTab3").addClass('active');
+    $("#panel_tab2_example3").addClass('active');
+    $("#myTab1").removeClass('active');
+    $("#panel_tab2_example1").removeClass('active');
+    $("#myTab2").removeClass('active');
+    $("#panel_tab2_example2").removeClass('active');
+    $("#myTab4").removeClass('active');
+    $("#panel_tab2_example4").removeClass('active');
+    document.getElementById("bigbox").style.width="60%";
+   }
+   // 切换标签4 我的提现 2-16-07-22
+   function showtab4(){
+    $("#myTab4").addClass('active');
+    $("#panel_tab2_example4").addClass('active');
+    $("#myTab1").removeClass('active');
+    $("#panel_tab2_example1").removeClass('active');
+    $("#myTab2").removeClass('active');
+    $("#panel_tab2_example2").removeClass('active');
+    $("#myTab3").removeClass('active');
+    $("#panel_tab2_example3").removeClass('active');
+    document.getElementById("bigbox").style.width="80%";
+   }
+   // 修改密码
+   function modify_pwd(){
+      $("#modify").fadeOut();
+      var uid = document.getElementById('uid').value;
+      var user = document.getElementById('user').value;
+      var pwd = document.getElementById('new_pwd').value;
+      $.post("modify_user_pwd",{uid:uid,user:user,pwd:pwd},function(sync){
+        if(sync.status == 1){
+            document.getElementById("megmeg").innerHTML = sync.content;
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+               // window.location.reload();
+            },1000);
+            return true;
+        }else{
+            document.getElementById("megimg").innerHTML="X";
+            var content = "未知错误，修改失败！<br/> 请联系管理员！";
+            if(sync.content != '' && sync.content != null){
+               content = sync.content;
+            }
+            document.getElementById("megmeg").innerHTML = content;
+            // document.getElementById("megbtn").style.border="1px solid red";
+            // document.getElementById("megimg").style.color="red";
+            // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+               // $(".back").fadeOut();
+            },1000);
+            return false;
+        }
+    });
+  }
+  // 显示修改密码窗口
+  function modify_show(){
+    $("#modify").fadeIn();
+  }
+  // 隐藏修改密码窗口
+  function modify_cancel(){
+    $("#modify").fadeOut();
+  }
+  //图片上传
+  function uploadimg(){
+    // alert('helo');
+    //创建formdata对象
+    var fd=new FormData();
+    //获取文件对象
+    var pic=document.getElementById('ercode').files[0];
+    //把文件内容追加到表单数据
+    fd.append(pic.name,pic); 
+    //发送数据
+    var xhr=new XMLHttpRequest();
+    xhr.onreadystatechange=function(data)
+      {
+      if (xhr.readyState==4 && xhr.status==200){
+          json_obj = eval('('+xhr.responseText+')');//把JSON字符串转换成JSON对象
+          var img = document.getElementById("ercodeurl"); //返回的二维码图片存放地址赋值给变量
+          img.value = json_obj.content;
+        }
+      }
+    xhr.open('POST','{:U('/Admin/index/uploadimg')}',true);
+    xhr.upload.onprogress=function (ev){
+      if(ev.lengthComputable){
+        $("#bar").addClass('addc-bar');
+        $("#upimg").addClass('addc-upimg');
+        var percent=100*ev.loaded/ev.total;
+        // document.getElementById('bar').style.width=percent+'%';
+        var uptd = document.getElementById('upercode');
+        var paddingwidth = eval(33);
+        var totalwidth = 100 + paddingwidth / uptd.scrollWidth * 100;
+        document.getElementById('bar').style.width = totalwidth + '%';
+        document.getElementById('bar').innerHTML=parseInt(percent)+'%';
+      }
+    }
+    xhr.send(fd);
+    //演示显示在浏览器的效果
+    var debug=document.getElementById('debug');
+    var tempimg=document.createElement('img');
+    tempimg.src=window.URL.createObjectURL(pic);//把二进制对象编程浏览器的资源
+    document.getElementsByTagName('body')[0].appendChild(tempimg);
+    }
+    // 显示添加支付方式入口
+    function show_addpay(){
+      $("#pay1step").fadeIn();
+    }
+    // 显示微信表单
+    function towxpay(){
+      $("#pay1step").fadeOut();
+      document.getElementById("weipayname").value='';
+      document.getElementById("wid").value = '';
+      document.getElementById("appid").value = '';
+      document.getElementById("secret").value = '';
+      document.getElementById("mchid").value = '';
+      document.getElementById("apikey").value = '';
+      document.getElementById("wopen").value = '';
+      $("#wxpay").fadeIn();
+    }
+    //显示支付宝表单
+    function toalipay(){
+      $("#pay1step").fadeOut();
+      document.getElementById("alipayname").value = '';
+      document.getElementById("aid").value = '';
+      document.getElementById("partner").value = '';
+      document.getElementById("akey").value = '';
+      document.getElementById("accounta").value = '';
+      document.getElementById("aopen").value = '';
+      $("#alipay").fadeIn();
+    }
+    //提交支付方式信息
+    function pay_sub(wora){
+      if(wora == 'weixin'){
+        $("#wxpay").fadeOut();
+        var payname = document.getElementById("weipayname").value;
+        var uid = document.getElementById("uidw").value;
+        var appid = document.getElementById("appid").value;
+        var secret = document.getElementById("secret").value;
+        var mchid = document.getElementById("mchid").value;
+        var key = document.getElementById("apikey").value;
+        var payment = 'Weipay';
+        $.post("add_payment",{uid:uid,appid:appid,secret:secret,key:key,mchid:mchid,payment:payment,payname:payname},function(pay){
+          if(pay.status == 1){
+              document.getElementById("megmeg").innerHTML = pay.content;
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 window.location.reload();
+              },1000);
+              return true;
+          }else{
+              document.getElementById("megimg").innerHTML="X";
+              var content = "未知错误，添加失败！<br/> 请联系管理员！";
+              if(pay.content != '' && pay.content != null){
+                 content = pay.content;
+              }
+              document.getElementById("megmeg").innerHTML = content;
+              // document.getElementById("megbtn").style.border="1px solid red";
+              // document.getElementById("megimg").style.color="red";
+              // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 $(".back").fadeOut();
+              },1000);
+              return false;
+          }
+        });
+      }else{
+        $("#alipay").fadeOut();
+        var payname = document.getElementById("alipayname").value;
+        var uid = document.getElementById("uidw").value;
+        var partner = document.getElementById("partner").value;
+        var key = document.getElementById("akey").value;
+        var account = document.getElementById("accounta").value;
+        var payment = 'Alipay';
+        $.post("add_payment",{uid:uid,partner:partner,key:key,account:account,payment:payment,payname:payname},function(pay){
+          if(pay.status == 1){
+              document.getElementById("megmeg").innerHTML = pay.content;
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 window.location.reload();
+              },1000);
+              return true;
+          }else{
+              document.getElementById("megimg").innerHTML="X";
+              var content = "未知错误，添加失败！<br/> 请联系管理员！";
+              if(pay.content != '' && pay.content != null){
+                 content = pay.content;
+              }
+              document.getElementById("megmeg").innerHTML = content;
+              // document.getElementById("megbtn").style.border="1px solid red";
+              // document.getElementById("megimg").style.color="red";
+              // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 $(".back").fadeOut();
+              },1000);
+              return false;
+          }
+        });
+      }
+    }
+    //取消添加支付方式
+    function pay_cancel(wora){
+      if(wora == 'weixin'){
+        $("#wxpay").fadeOut();
+      }else{
+        $("#alipay").fadeOut();
+      }
+    }
+    //显示修改支付方式的表单
+    function updatepay(payment,id,name,appid,mchid,key,open,secret){
+      if(payment == 'weipay'){
+        document.getElementById("weipayname").value=name;
+        document.getElementById("wid").value = id;
+        document.getElementById("appid").value = appid;
+        document.getElementById("secret").value = secret;
+        document.getElementById("mchid").value = mchid;
+        document.getElementById("apikey").value = key;
+        document.getElementById("wopen").value = open;
+        document.getElementById("modify-wpay-btn").style.display="block";
+        document.getElementById("add-wpay-btn").style.display="none";
+        $("#wxpay").fadeIn();
+      }else{
+        document.getElementById("alipayname").value = name;
+        document.getElementById("aid").value = id;
+        document.getElementById("partner").value = appid;
+        document.getElementById("akey").value = key;
+        document.getElementById("accounta").value = mchid;
+        document.getElementById("aopen").value = open;
+        document.getElementById("modify-apay-btn").style.display="block";
+        document.getElementById("add-apay-btn").style.display="none";
+        $("#alipay").fadeIn();
+      }
+    }
+    //提交修改支付方式的申请
+    function updatepay_sub(payment){
+      if(payment == 'weixin'){
+        $("#wxpay").fadeOut();
+        var payname = document.getElementById("weipayname").value;
+        var payid = document.getElementById("wid").value;
+        var appid =  document.getElementById("appid").value;
+        var secret = document.getElementById("secret").value;
+        var mchid = document.getElementById("mchid").value;
+        var key = document.getElementById("apikey").value;
+        var open = document.getElementById("wopen").value;
+        var payment = 'Weipay';
+        $.post("update_payment",{payment:payment,payname:payname,payid:payid,appid:appid,secret:secret,mchid:mchid,key:key,open:open},function(pay){
+          if(pay.status == 1){
+              document.getElementById("megmeg").innerHTML = pay.content;
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 window.location.reload();
+              },1000);
+              return true;
+          }else{
+              document.getElementById("megimg").innerHTML="X";
+              var content = "未知错误，修改失败！<br/> 请联系管理员！";
+              if(pay.content != '' && pay.content != null){
+                 content = pay.content;
+              }
+              document.getElementById("megmeg").innerHTML = content;
+              // document.getElementById("megbtn").style.border="1px solid red";
+              // document.getElementById("megimg").style.color="red";
+              // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 $(".back").fadeOut();
+              },1000);
+              return false;
+          }
+        });
+      }else{
+        $("#alipay").fadeOut();
+        var payname = document.getElementById("alipayname").value;
+        var payid = document.getElementById("aid").value;
+        var partner = document.getElementById("partner").value;
+        var key = document.getElementById("akey").value;
+        var account = document.getElementById("accounta").value;
+        var open = document.getElementById("aopen").value;
+        var payment = "Alipay";
+          $.post("update_payment",{payment:payment,payname:payname,payid:payid,partner:partner,key:key,account:account,open:open},function(pay){
+          if(pay.status == 1){
+              document.getElementById("megmeg").innerHTML = pay.content;
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 window.location.reload();
+              },1000);
+              return true;
+          }else{
+              document.getElementById("megimg").innerHTML="X";
+              var content = "未知错误，修改失败！<br/> 请联系管理员！";
+              if(pay.content != '' && pay.content != null){
+                 content = pay.content;
+              }
+              document.getElementById("megmeg").innerHTML = content;
+              // document.getElementById("megbtn").style.border="1px solid red";
+              // document.getElementById("megimg").style.color="red";
+              // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 $(".back").fadeOut();
+              },1000);
+              return false;
+          }
+        });
+      }
+    }
+    //删除支付方式
+    function delpay(payment,id){
+      $.post("del_payment",{id:id,payment:payment},function(pay){
+        if(pay.status == 1){
+            document.getElementById("megmeg").innerHTML = pay.content;
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+               window.location.reload();
+            },1000);
+            return true;
+        }else{
+            document.getElementById("megimg").innerHTML="X";
+            var content = "未知错误，删除失败！<br/> 请联系管理员！";
+            if(pay.content != '' && pay.content != null){
+               content = pay.content;
+            }
+            document.getElementById("megmeg").innerHTML = content;
+            // document.getElementById("megbtn").style.border="1px solid red";
+            // document.getElementById("megimg").style.color="red";
+            // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+               $(".back").fadeOut();
+            },1000);
+            return false;
+        }
+      });
+    }
+    //提现 //需要一张提现表，统计金额是收款总额减去提现总额=账目金额
+    function take_money_back(uid,time,ids){
+      $.post("take_money_back",{uid:uid,time:time,ids:ids},function(money){
+          if(money.status == 1){
+              document.getElementById("megmeg").innerHTML = money.content;
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 window.location.reload();
+              },1000);
+              return true;
+          }else{
+              document.getElementById("megimg").innerHTML="X";
+              var content = "未知错误，添加失败！<br/> 请联系管理员！";
+              if(money.content != '' && money.content != null){
+                 content = money.content;
+              }
+              document.getElementById("megmeg").innerHTML = content;
+              // document.getElementById("megbtn").style.border="1px solid red";
+              // document.getElementById("megimg").style.color="red";
+              // document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#alipay").fadeOut();
+                 // $(".back").fadeOut();
+              },1000);
+              return false;
+          }
+        });
+    }
+    function take_show(){
+      var money = document.getElementById("bmoney").innerHTML;
+      if(money == 0){
+        document.getElementById("megimg").innerHTML="X";
+        document.getElementById("megmeg").innerHTML = '没有可提现的金额！';
+        $("#meginfo2").fadeIn();
+          setTimeout(function(){
+              $("#meginfo2").fadeOut();
+          },1000);
+      }else{
+        $("#take-m-a").fadeIn();
+      }
+    }
+    //显示添加银行账号表单
+    function show_add(){
+      $(".add-show").show();
+      $(".take-show").hide();
+      // document.getElementById("new-lip").style.top="-280px";
+      $("#a_account").hide();
+      $("#new-lip").hide();
+    }
+    function check_account(){
+      var account = document.getElementById("a_number").value;
+      var uid = document.getElementById("uids").value;
+      $.post("check_account",{uid:uid,account:account},function(data){
+        if(data.status == 1){
+          document.getElementById("lip").innerHTML='账号可用！';
+          document.getElementById("lip").style.color="green";
+          $("#lip").show();
+          return true;
+        }else{
+          $("#lip").show();
+          return false;
+        }
+      });
+    }
+    // 提交添加账号
+    function add_sub(){
+      var bank = document.getElementById("a_bank").value;
+      var name = document.getElementById("a_name").value;
+      var number = document.getElementById("a_number").value;
+      var branch = document.getElementById("a_branch").value;
+      var uid = document.getElementById("uids").value;
+      var bank_name = document.getElementById("bank_name").value;
+      alert(number.substr(0,4));
+      $.post("add_account",{uid:uid,bank:bank,name:name,number:number,branch:branch},function(data){
+        if(data.status == 1){
+            document.getElementById("megmeg").innerHTML = data.content;
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+                $("#meginfo2").fadeOut();
+                $("#a_account").show();
+                $("#new-lip").show();
+                $(".add-show").hide();
+                $(".take-show").show();
+                document.getElementById("hide-option").selected=true;
+                document.getElementById("hide-option").value=data.id;
+                document.getElementById("hide-option").innerHTML=bank_name+' '+name+' '+number.substr(0,4)+'******'+number.substr(number.length-4,4);
+                $("#lip").hide();
+                document.getElementById("a_name").value = '';
+                document.getElementById("a_number").value = '';
+                document.getElementById("a_branch").value ='';
+            },1000);
+            return true;
+        }else{
+            document.getElementById("megimg").innerHTML="X";
+            var content = "未知错误，添加失败！<br/> 请联系管理员！";
+            if(data.content != '' && data.content != null){
+               content = data.content;
+            }
+            document.getElementById("megmeg").innerHTML = content;
+            document.getElementById("megbtn").style.border="1px solid red";
+            document.getElementById("megimg").style.color="red";
+            document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+               $("#lip").hide();
+                document.getElementById("a_name").value = '';
+                document.getElementById("a_number").value = '';
+                document.getElementById("a_branch").value ='';
+            },1000);
+            return false;
+        }
+      });
+    }
+    // 取消添加账号
+    function add_cancel(){
+      $(".add-show").hide();
+      $(".take-show").show();
+      // document.getElementById("new-lip").style.top="-95px";
+      $("#a_account").show();
+      $("#new-lip").show();
+      $("#lip").hide();
+      document.getElementById("a_name").value = '';
+      document.getElementById("a_number").value = '';
+      document.getElementById("a_branch").value ='';
+    }
+    // 提交取现申请
+    function take_sub(){
+      var uid = document.getElementById("uids").value;
+      var timestamp = document.getElementById("timestamp").value;
+      var splyids = document.getElementById("splyids").value;
+      var accountid = document.getElementById("account").value; 
+      var backmoney = document.getElementById("backmoney").value;
+      $.post("take_money_back",{uid:uid,timestamp:timestamp,splyids:splyids,accountid:accountid,backmoney:backmoney},function(data){
+        if(data.status == 1){
+            document.getElementById("megmeg").innerHTML = data.content;
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+                $("#meginfo2").fadeOut();
+                $("#take-m-a").fadeOut();
+            },1000);
+            return true;
+        }else{
+            document.getElementById("megimg").innerHTML="X";
+            var content = "未知错误，申请失败！<br/> 请联系管理员！";
+            if(data.content != '' && data.content != null){
+               content = data.content;
+            }
+            document.getElementById("megmeg").innerHTML = content;
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+               $("#take-m-a").fadeOut();
+            },1000);
+            return false;
+        }
+      });
+    }
+    // 取消提现申请
+    function take_cancel(){
+      $("#take-m-a").fadeOut();
+    }
+</script>
+    <section>
+      <div class="col-sm-6" id="bigbox">
+        <div class="tabbable inline">
+        <div>
+          <ul class="nav nav-tabs tab-bricky" id="myTab">
+            <li id="myTab1" class="active">
+              <a data-toggle="tab" href="javascript:void(0);" onclick="showtab1();">
+                会员信息
+              </a>
+            </li>
+            <li  id="myTab2">
+              <a data-toggle="tab" href="javascript:void(0);" onclick="showtab2();">
+                财务设置
+              </a>
+            </li>
+            <li class="dropdown" id="myTab3">
+              <a data-toggle="tab" href="javascript:void(0);" onclick="showtab3();">
+                财务统计
+              </a>
+            </li>
+            <li class="dropdown" id="myTab4">
+              <a data-toggle="tab" href="javascript:void(0);" onclick="showtab4();">
+                我的提现
+              </a>
+            </li>
+          </ul>
+        </div>
+          <div class="tab-content">
+            <div id="panel_tab2_example1" class="tab-pane in active">
+             <div class="userdiv" id="userdivb">
+              
+              <table id="usertable">
+                <tr><td colspan="2"><h2>会员信息</h2></td></tr>
+                <tr> 
+                  <td>店铺</td> 
+                  <td>{$userinfo.store_name}</td>
+                </tr>
+                <tr> 
+                  <td>用户</td> 
+                  <td>{$user}</td>
+                </tr>
+                <tr> 
+                  <td>密码</td> 
+                  <td><a href="javascript:void(0);" onclick="modify_show();">修改密码</a></td>
+                </tr>
+              </table>
+             </div>
+              <div class="userdiv"> <!-- class="alert alert-info" -->
+                
+                <table id="servicetable">
+                  <tr>
+                    <td colspan="2">
+                      <h2>客服信息 <a href="javascript:void(0);" onclick="show_text();" class="show1">编辑</a><a href="javascript:void(0);" onclick="sub_text();" class="show2">提交</a></h2>
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td>二维码</td> 
+                    <if condition="$userinfo.ercode neq ''"><td class="show1"><img src="{$userinfo.ercode}" width="50px" height="50px"></td>
+                    <else /><td class="show1"><img src="__PUBLIC__/Admin/images/spacer.jpg" width="50px" height="50px"></td>
+                    </if>
+                    <td class="show2" id="upercode">
+                      <label for="ercode">点击上传二维码<input type="file" id="ercode" name="ercode" onchange="uploadimg();"></label>
+                      <input type="hidden" value="{$ercodeurl}" name="ercodeurl" id="ercodeurl">
+                      <div id="bar"></div>
+                      <div id="debug"></div>
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td>客服电话</td> 
+                    <td class="show1">{$userinfo.phone}</td>
+                    <td class="show2"><input type="text" id="phone" name="phone" value="{$userinfo.phone}" class="text-show"></td>
+                  </tr>
+                  <tr> 
+                    <td>QQ号码</td> 
+                    <td class="show1">{$userinfo.qq}</td>
+                    <td class="show2"><input type="text" id="qq" name="qq" value="{$userinfo.qq}" class="text-show"></td>
+                  </tr>
+              </table>
+              </div>
+            </div>
+            <div id="panel_tab2_example2" class="tab-pane ">
+              <div class="userdiv"> <!-- class="alert alert-info" -->
+                
+                <table id="servicetable">
+                  <tr>
+                    <th>
+                      序号
+                    </th>
+                    <th>
+                      支付名称
+                    </th>
+                    <!-- <td>
+                      支付方式
+                    </td> -->
+                    <th>
+                      支付宝合作者ID<br>
+                      微信AppID
+                    </th>
+                    <th>
+                      支付宝账号<br>
+                      微信MchID
+                    </th>
+                    <th>
+                      支付宝密匙<br>
+                      微信密匙
+                    </th>
+                    <th>
+                      微信AppSecret
+                    </th>
+                    <th>
+                      添加时间
+                    </th>
+                    <th>
+                      状态
+                    </th>
+                    <th>
+                      操作
+                    </th>
+                  </tr>
+                  <volist name="alipayment" id="a">
+                    <tr> 
+                      <td>{$mid++}</td> 
+                      <td>{$a.payment_name}</td>
+                      <!-- <td>支付宝</td> -->                      
+                      <td>{$a.partner}</td>
+                      <td>{$a.account}</td>
+                      <td>{$a.key}</td>
+                      <td>支付宝无此项</td>
+                      <td>{$a.add_time|date='m-d H:i',###}</td>
+                      <if condition="$a.is_open eq 1"><td>启用</td>
+                      <else /><td>未启用</td>
+                      </if>
+                      <td><a href="javascript:void(0);" onclick="updatepay('alipay','{$a.id}','{$a.payment_name}','{$a.partner}','{$a.account}','{$a.key}','{$a.is_open}')">编辑</a>  <a href="javascript:void(0);" onclick="delpay('Alipay','{$a.id}');">删除</a> <!-- <a href="javascript:void(0);" onclick="showpay('Alipay','{$a.id}');">显示</a> --></td>
+                    </tr>
+                  </volist>
+                  <volist name="weipayment" id="w">
+                    <tr> 
+                      <td>{$mid++}</td>
+                      <td>{$w.payment_name}</td> 
+                      <!-- <td>微信支付</td>                       -->
+                      <td>{$w.appid}</td>
+                      <td>{$w.mchid}</td>
+                      <td>{$w.key}</td>
+                      <td>{$w.appsecret}</td>
+                      <td>{$w.add_time|date='m-d H:i',###}</td>
+                      <if condition="$w.is_open eq 1"><td>启用</td>
+                      <else /><td>未启用</td>
+                      </if>
+                      <td><a href="javascript:void(0);" onclick="updatepay('weipay','{$w.id}','{$w.payment_name}','{$w.appid}','{$w.mchid}','{$w.key}','{$w.is_open}','{$w.appsecret}')">编辑</a>  <a href="javascript:void(0);" onclick="delpay('Weipay','{$w.id}');">删除</a><!--  <a href="javascript:void(0);" onclick="showpay('Weipay','{$w.id}');">显示</a> --></td>
+                    </tr>
+                  </volist>
+                  <tr><td colspan="10"><a href="javascript:void(0);" id="addpay" onclick="show_addpay();">添加新支付</a></td></tr>
+              </table>
+              </div>
+            </div>
+            <div id="panel_tab2_example3" class="tab-pane">
+              <div class="userdiv" id="userdivb">
+                <table id="usertable">
+                  <tr><td colspan="4"><h1>支付统计</h1></td></tr>
+                  <tr> 
+                    <th>支付名称</th> 
+                    <th>支付方式</th>
+                    <th>收款总额</th>
+                  </tr>
+                <volist name="count" id="c">
+                  <tr> 
+                    <td>{$c.payment_name}</td> 
+                    <if condition="$c.payment eq 'alipay'"><td>支付宝</td>
+                      <else /><td>微信支付</td>
+                    </if>
+                    <td>{$c.sum}</td> 
+                  </tr>
+                </volist>
+                  <tr> 
+                    <td colspan="4">收款总额：{$allpay}元 &nbsp;&nbsp; &nbsp;&nbsp;可提现金额：<span id="bmoney">{$backmoney}</span>元&nbsp;&nbsp;<a href="javascript:void(0);" onclick="take_show();">申请提现</a></td> 
+                  </tr>
+                </table>
+              </div>
+              <div class="userdiv"> <!-- class="alert alert-info" -->
+                
+                <table id="servicetable">
+                  <tr><td colspan="7"><h1>支付明细表</h1></td></tr>
+                  <tr>
+                    <th>
+                      序号
+                    </th>
+                    <th>
+                      项目名称
+                    </th>
+                    <th>
+                      申请人
+                    </th>
+                    <th>
+                      手机号码
+                    </th>
+                    <th>
+                      支付金额
+                    </th>
+                    <th>
+                      支付方式
+                    </th>
+                    <th>
+                      支付时间
+                    </th>
+                  </tr>
+                <volist name="sply_details" id="sply">
+                  <tr> 
+                    <td>{$nid++}</td>
+                    <td>{$sply.pro_name}</td>
+                    <td>{$sply.sply_name}</td>
+                    <td>{$sply.sply_phone}</td>
+                    <td>{$sply.pay_money}</td>
+                    <if condition="$sply.payment eq 'alipay'"><td>支付宝</td>
+                      <else /><td>微信支付</td>
+                    </if>
+                    <if condition="($sply.pay_time eq 0) OR ($sply.pay_time eq '') OR ($sply.pay_time eq null)"><td>未支付</td>
+                      <else /><td>{$sply.pay_time|date="Y-m-d H:i:s",###}</td>
+                    </if>
+                  </tr>
+                </volist>
+              </table>
+              </div>
+            </div>
+            <div id="panel_tab2_example4" class="tab-pane">
+              <div class="userdiv" id="userdivb">
+                <table id="usertable">
+                  <tr>
+                    <th>序号</th>
+                    <th>提现金额</th>
+                    <th>申请账号</th>
+                    <th>申请时间</th>
+                    <th>处理状态</th>
+                    <th>处理时间</th>
+                    <!-- <th>备注</th> -->
+                  </tr>
+                    <volist name="withdraw" id="w">
+                      <tr>
+                      <td>{$w.id}</td>
+                      <td>{$w.sum}</td>
+                      <td>{$w.account}</td>
+                      <if condition="$w.sply_time gt '0'"><td>{$w.sply_time|date='Y-m-d H:i:s',###}</td>
+                        <else /><td>未知时间</td>
+                      </if>
+                      <if condition="$w.status eq '1'"><td>已转账</td>
+                        <else /><td>未处理</td>
+                      </if>
+                      <if condition="$w.modify_time gt '0'"><td>{$w.modify_time|date='Y-m-d H:i:s',###}</td>
+                        <else /><td>未知时间</td>
+                      </if>
+                      </tr>
+                    </volist>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="meg" id="meginfo2">
+      <div class="meginfo">
+        <div id="megbtn"><h6 id="megimg">√</h6></div>
+        <div id="megmeg">修改成功！</div>
+      </div>
+    </section>
+    <section class="meg" id="modify">
+      <div class="meginfo">
+        <form>
+          <input type="text" name="new_pwd" id="new_pwd" value="" placeholder="新密码">
+          <input type="hidden" name="user" id="user" value="{$user}">
+          <input type="hidden" name="uid" id="uid" value="{$uid}">
+          <input type="button" value="提交" name="sub" id="sub" class="btns" onclick="modify_pwd();">
+          <input type="button" value="取消" name="cancel" id="cancel" class="btns" onclick="modify_cancel();">
+        </form>
+      </div>
+    </section>
+    <section class="pay" id="pay1step">
+      <div class="payinfo1">
+        <h3>请选择支付接口类型</h3>
+        <div id="pay1step_bg">
+          <a href="javascript:void(0);" onclick="toalipay();">
+            <img src="__PUBLIC__/Admin/images/alipay.png">
+          </a>
+          <a href="javascript:void(0);" onclick="towxpay();">
+            <img src="__PUBLIC__/Admin/images/weipay.png"> 
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="pay" id="wxpay" >
+      <div class="payinfo">
+        <div class="payform">
+          <form>
+            <label for="weipayname">支付名称:</label><input type="text" name="weipayname" id="weipayname" value="">
+            <div class="clear"></div>
+            <label for="appid">AppID:</label><input type="text" name="appid" id="appid" value="">
+            <div class="clear"></div>
+            <label for="secret">AppSecret:</label><input type="text" name="secret" id="secret" value="">
+            <div class="clear"></div>
+            <label for="mchid">MchID:</label><input type="text" name="mchid" id="mchid" value="">
+            <div class="clear"></div>
+            <!-- <div class="fg"></div> -->
+            <label for="apikey">API密匙:</label><input type="text" name="apikey" id="apikey" value="">
+            <!-- 证书1:<label for="sec1" class="filelabel">点击上传证书1</label><input type="file" name="sec1" id="sec1" value="">
+            <div class="clear"></div>
+            <div id="fg"></div>
+            证书2:<label for="sec2" class="filelabel">点击上传证书2</label><input type="file" name="sec2" id="sec2" value=""> -->
+            <div class="clear"></div>
+            <input type="hidden" name="uid" id="uidw" value="{$uid}">
+            <input type="hidden" name="wid" id="wid" value="">
+            <input type="hidden" name="wopen" id="wopen" value="">
+            <div class="clear"></div>
+            <div id="fgbig"></div>
+            <!-- <input type="button" value="提交" name="subw" id="subw" class="btns" onclick="pay_sub('weixin');">
+            <input type="button" value="取消" name="cancelw" id="cancelw" class="btns" onclick="pay_cancel('weixin');"> -->
+            <div id="add-wpay-btn">
+              <a href="javascript:void(0);" name="subw" id="subw" onclick="pay_sub('weixin');">提交</a>
+              <a href="javascript:void(0);" name="cancelw" id="cancelw" class="btns" onclick="pay_cancel('weixin');">取消</a>
+            </div>
+            <div id="modify-wpay-btn">
+              <a href="javascript:void(0);" name="sub-w-modify" id="sub-w-modify" onclick="updatepay_sub('weixin');">提交</a>
+              <a href="javascript:void(0);" name="cancel-w" id="cancel-w" class="btns" onclick="pay_cancel('weixin');">取消</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="pay" id="alipay" >
+      <div class="payinfo">
+        <div class="payform">
+          <form>
+            <label for="alipayname">支付名称:</label><input type="text" name="alipayname" id="alipayname" value="">
+            <div class="clear"></div>
+            <label for="">支付宝账号:</label><input type="text" name="accounta" id="accounta" value="">
+            <div class="clear"></div>
+            <label for="">合作身份者ID:</label><input type="text" name="partner" id="partner" value="">
+            <div class="clear"></div>
+            <label for="">安全校验码:</label><input type="text" name="akey" id="akey" value="">
+            <div class="clear"></div>
+            <input type="hidden" name="uid" id="uida" value="{$uid}">
+            <input type="hidden" name="aid" id="aid" value="">
+            <input type="hidden" name="aopen" id="aopen" value="">
+            <div class="clear"></div>
+            <div class="fg"></div>
+            <!-- <input type="button" value="提交" name="suba" id="suba" class="btns" onclick="pay_sub('alipay');">
+            <input type="button" value="取消" name="cancela" id="cancela" class="btns" onclick="pay_cancel('alipay');"> -->
+            <div id="add-apay-btn">
+              <a href="javascript:void(0);" name="suba" id="suba" onclick="pay_sub('alipay');">提交</a>
+              <a href="javascript:void(0);" name="cancela" id="cancela"  onclick="pay_cancel('alipay');">取消</a>
+            </div>
+            <div id="modify-apay-btn">
+              <a href="javascript:void(0);" name="sub-a-modify" id="sub-a-modify" onclick="updatepay_sub('alipay');">提交</a>
+              <a href="javascript:void(0);" name="cancel-a" id="cancel-a"  onclick="pay_cancel('alipay');">取消</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="take-m-b" id="take-m-a" >
+      <div class="take-m-c">
+        <div class="take-m-d">
+          <form>
+            <table width="100%" height="100%">
+              <tr>
+                <th colspan="2">申请提现</th>
+              </tr>
+              <tr class="" id="a_account">
+                <td class="right"><label>收款账号</label></td>
+                <td class="left">
+                    <select class="form-control m-t" id="account">
+                      <volist name="account" id="ac">
+                        <option value="{$ac.id}">{$ac.bank}</option>
+                      </volist>
+                      <option value='0000' id="hide-option"></option>
+                    </select>
+                </td>
+              </tr>
+              <tr class="add-show">
+                <td class="right"><label>银行</label></td>
+                <td class="left">
+                    <select class="form-control m-t" id="a_bank">
+                      <option value="ICBC">中国工商银行</option>
+                      <option value="CCB">中国建设银行</option>
+                      <option value="ABC">中国农业银行</option>
+                      <option value="BOC">中国银行</option>
+                      <option value="CMBC">中国民生银行</option>
+                      <option value="CMB">招商银行</option>
+                      <option value="CIB">兴业银行</option>
+                      <option value="BCM">交通银行</option>
+                      <option value="CEB">中国光大银行</option>
+                      <option value="GDB">广东发展银行</option>
+                      <option value="BOB">北京市商业银行</option>
+                      <option value="SDB">深圳发展银行</option>
+                      <option value="CITIC">中信银行</option>
+                    </select>
+                </td>
+              </tr>
+              <tr class="add-show">
+                <td class="right"><label>户名</label></td>
+                <td class="left"><input type="text" name="a_name" id="a_name" value=""></td>
+              </tr>
+              <tr class="add-show">
+                <td class="right"><label>账号</label></td>
+                <td class="left"><input type="text" name="a_number" id="a_number" value="" onblur="check_account()"></td>
+              </tr>
+              <tr class="add-show">
+                <td class="right"><label>支行</label></td>
+                <td class="left"><input type="text" name="a_branch" id="a_branch" value=""></td>
+              </tr>
+              <tr class="">
+                <td colspan=2>
+                  <a href="javascript:void(0);" name="take-add-sub" id="take-add-sub" class='take-m-btn add-show' onclick="add_sub();">添加账号</a>
+                  <a href="javascript:void(0);" name="take-add-cancel" id="take-add-cancel" class='take-m-btn add-show' onclick="add_cancel();">取消</a>
+                  <a href="javascript:void(0);" name="take-sub" id="take-sub" class='take-m-btn take-show' onclick="take_sub();">提交申请</a>
+                  <a href="javascript:void(0);" name="take-cancel" id="take-cancel" class='take-m-btn take-show' onclick="take_cancel();">取消</a>
+                </td>
+              </tr>
+            </table>
+            <input type="hidden" name="timestamp" id="timestamp" value="{$timestamp}">
+            <input type="hidden" name="splyids" id="splyids" value="{$sply_ids}">
+            <input type="hidden" name="uids" id="uids" value="{$uid}">
+            <input type="hidden" name="backmoney" id="backmoney" value="{$backmoney}">
+            <input type="hidden" name="bank_name" id="bank_name" value="中国工商银行">
+          </form>
+        </div>
+        <div id="new-lip"><a href="javascript:void(0);" name="show-add" id="show-add" onclick="show_add();">添加账号</a></div>
+        <div id="lip">账号已存在！</div>
+      </div>
+    </section>
+</body>
+</html>

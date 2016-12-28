@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- 移动端页面设置 -->
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+	<title>{$title}</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/xin_ceshi/css/toy.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/xin_ceshi/css/nr.css">
+	<!--必要样式-->
+	<link href="__PUBLIC__/xin_ceshi/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/xin_ceshi/css/city-picker.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		input{
+			border: none;
+			border-radius: 0;
+			padding-left: 10px;
+		}
+		.ys{
+			height: 40px;
+			width: 90%;
+			border-bottom: 1px solid #ccc;
+			margin-top: 10px;
+			margin-left: 5%;
+		}
+
+		span{
+			width: 90%;
+			height: 34px;
+			line-height: 33px
+			margin-left:5%;
+		}
+		h5{
+			line-height: 50px;
+			padding-left: 10px;
+		}
+		.yc{
+			display: none;
+			
+		}
+
+	img{
+		margin-top: 20px;
+		width: 100%;
+	}
+	#result {
+		width:90%;
+		margin-left:5%;
+	}
+	#result tr,td {
+		border:1px solid #333;
+	}
+	#qiang{
+		padding:5px 10px;
+		background:#ff0000;
+		border-radius:3px;
+		color:white;
+	}
+	</style>
+</head>
+<body>
+	<section style="text-align:center;">
+		<img src="{$img}" alt="">
+		<p style="font-size:20px;padding-top:20px;padding-bottom:20px;font-weight:700;">{$results}</p>
+		<div style="float: left; line-height: 1px; height: 1px;margin-left: 35%;"></div>
+		<if condition="$res eq 'yes'">
+			<table id="result">
+				<tr>
+					<td>抢定地区</td>
+					<td>{$data.area}</td>
+				</tr>
+				<tr>
+					<td>限制代理数量</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>申请咨询数量</td>
+					<td style="color:red">{$data.num}</td>
+				</tr>
+			</table>
+			<div style="width:100%;height:30px;"></div>
+			<div><a id="qiang" href="tel:{$hotline}">联系客服</a></div>
+			<div style="width:100%;height:50px;"></div>
+		<elseif condition="$res eq 'no'" />
+			<table id="result">
+				<tr>
+					<td>抢定地区</td>
+					<td>{$data.area}</td>
+				</tr>
+				<tr>
+					<td>限制代理数量</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>中标人</td>
+					<td>{$data.name}</td>
+				</tr>
+				<tr>
+					<td>申请咨询数量</td>
+					<td style="color:red">{$data.num}</td>
+				</tr>
+				<!-- <tr>
+					<td>关注数量</td>
+					<td>{$data.query_num}</td>
+				</tr> -->
+			</table>
+			<!-- <div style="width:100%;height:50px;"></div> -->
+			<div style="width:100%;height:30px;"></div>
+			<div><a id="qiang" href="{:U('Home/index/index',array('id'=>$pid))}">去抢其他地区</a></div>
+			<div style="width:100%;height:50px;"></div>
+			<else /><div style="width:100%;height:30px;"></div>
+			<div><a id="qiang" href="tel:{$hotline}">联系客服</a></div>
+			<div style="width:100%;height:50px;"></div>
+		</if>
+	</section>
+
+</body>
+</html>

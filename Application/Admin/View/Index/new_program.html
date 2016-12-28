@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>{$title}</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/page.css" />
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/Admin/js/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/BaiduEditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/BaiduEditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/BaiduEditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+	(function($){
+		$(window).load(function(){
+			
+			$("a[rel='load-content']").click(function(e){
+				e.preventDefault();
+				var url=$(this).attr("href");
+				$.get(url,function(data){
+					$(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+					//scroll-to appended content 
+					$(".content").mCustomScrollbar("scrollTo","h2:last");
+				});
+			});
+			
+			$(".content").delegate("a[href='top']","click",function(e){
+				e.preventDefault();
+				$(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+			});
+			
+		});
+	})(jQuery);
+</script>
+<style>
+.meg{
+  display: none;
+  background: rgba(0,0,0,.35);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.meginfo{
+  /*width:15%;*/
+  max-width: 405px;
+  /*height:6%;*/
+  margin: 0 auto;
+  padding: 1%;
+  background: #f8f8f8;
+  margin-top: 16%;
+  border-radius: 5px;
+  text-align: center;
+  padding-bottom: 2%;
+}
+#megbtn{
+  width: 60px;
+  height: 60px;
+  border: 2px solid #67c1a5;
+  border-radius: 100%;
+  float: left;
+  /*margin-left: 5%;*/
+  margin: 1% 5%;
+}
+#megbtn h6{
+  color:#67c1a5;
+  font-size: 40px;
+  margin-top:8px;
+  margin-left: 14px;
+}
+#megmeg{
+    line-height: 2em;
+    font-size: 1.9em;
+    margin-left: 15px;
+    position:relative;
+    right:-10px;
+    
+}
+html {
+    overflow-y: hidden;
+}
+  td {
+    text-align: center;
+  }
+   a {
+    color:#333;
+  }
+  .actived{
+    color:#67c1a5;
+  }
+  .col-sm-6{
+    margin:25px;
+    height:750px;
+    border:1px solid #E3E5E7;
+  }
+  .col-sm-7{
+    margin:15px;
+    
+  }
+  .col-sm-7 p{
+    font-size:12px;
+    color:#666;
+  }
+  .col-sm-8{
+    border-bottom:1px solid #E3E5E7;
+  }
+  .col-sm-9{
+    /*width:100%;*/
+  }
+  .col-sm-01{
+    float:left;
+    width:60%;
+    /*height:100%;*/
+    border-right:1px solid #E3E5E7;
+  }
+  .col-sm-001{
+     margin: 15px;
+  }
+  .col-sm-02{
+    float:left;
+    margin: 15px;
+    width:37%;
+    height:100%;
+    line-height: 22px;
+  }
+label {
+  font-weight: normal;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input,textarea{
+  font-size: 14px;
+  line-height: 2.042857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  margin-bottom:15px;
+}
+.form-cotrol{
+  display: block;
+  width: 96%;
+  height: 25px;
+  padding: 6px 12px;
+  
+}
+.label-right{
+  margin-right:70%;
+}
+#upimg{
+  width:80%;
+  height:30px;
+  border:1px solid #ccc;
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: 15px;
+}
+.addc-upimg{
+  padding-bottom: 5px;
+}
+.upimg{
+  padding:2px 115px; /* 2px 49px */
+}
+#coverimg{
+  width:0%;
+  height:0px;
+  opacity:0;
+}
+textarea{
+   width: 96%;
+   height:400px;
+   /*margin-bottom:15px;*/
+}
+#btna{
+  margin-bottom:25px;
+  position: absolute;
+  bottom:15px;
+  /*right:170px;*/
+  right:6%;
+}
+.btn{
+  color:#D3E5E7;
+  padding:2px 70px;
+  border:1px solid #E3E5E7;
+  border-radius:2px;
+  /*margin-top:375px;*/
+}
+#sub{
+  /*margin-left:130px;*/
+  margin-right: 10px;
+  border:1px solid #19A97B;
+  color:#19A97B;
+}
+.btn:hover{
+  color:white;
+  border:1px solid #19A97B;
+  background:#19A97B;
+}
+#sub:hover{
+  color:white;
+  border:1px solid #19A97B;
+  background:#19A97B;
+}
+.col-sm-2{
+  float:left;
+}
+#div1,#div3{
+    width: 36px;
+    height: 20px;
+    border-radius: 34px;
+    position: relative;
+}
+#div2,#div4{
+    width: 16px;
+    height: 16px;
+    border-radius: 48px;
+    position: absolute;
+    background: white;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+}
+.open1{
+    background: rgba(0,184,0,0.8);
+}
+.open2{
+    top: 2px;
+    left: 1px;
+}
+.close1{
+    background: rgba(220,220,220,0.4);
+    border:1px solid rgba(0,0,0,0.15);
+    border-left: transparent;
+}
+.close2{
+    right: 1px;
+    top: 2px;
+    /*border:1px solid rgba(0,0,0,0.1);*/
+}
+.openright{
+  float:right;
+  /*margin-right:20px;*/
+}
+.clear{
+  clear:both;
+}
+.form-control{
+  width:80%;
+  height:40px;
+  line-height: 40px;
+  text-align:left;
+  color:#333;
+  border:1px solid #ccc;
+}
+.m-t{
+  margin-bottom:15px;
+  margin-left: 15px;
+}
+#debug{
+  margin-bottom: 15px;
+  color:red;
+}
+#bar{
+  margin-top:-39px;
+  margin-left:-1px;
+  width:0%;
+  height:5px;
+  background: #19A97B;
+}
+.addc-bar{
+  border-left:1px solid #19A97B;
+  border-right:1px solid #19A97B;
+}
+#labimg{
+  margin-right:40%
+}
+.clear{
+  clear:both;
+}
+.left-img{
+  float: left;
+  width: 35%;
+}
+.right-upload{
+   float: left;
+    width: 65%;
+}
+h5 img{
+  width:45px;
+  height:45px;
+}
+#text-content{
+  margin:0;
+  padding:0;
+}
+#describe{
+ margin:0;
+ padding:0;
+  /*overflow:auto;*/
+   height:480px;
+}
+#edui1{
+  height:480px;
+  overflow:auto;
+}
+#edui1_iframeholder{
+  /*overflow: auto;*/
+  margin-top: 50px;
+}
+#edui1_toolbarbox{
+  z-index: 99999;
+  position: fixed;
+}
+</style>
+<script>
+  window.onload=function(){
+        var div2=document.getElementById("div2");
+        var div1=document.getElementById("div1");
+        div2.onclick=function(){
+          if(div1.className == "close1 openright"){
+            document.getElementById("open").value = 1;
+          }else{
+            document.getElementById("open").value = 0;
+          }
+          div1.className=(div1.className=="close1 openright")?"open1 openright":"close1 openright";
+          div2.className=(div2.className=="close2")?"open2":"close2";
+        }
+
+        var div4=document.getElementById("div4");
+        var div3=document.getElementById("div3");
+        div4.onclick=function(){
+          if(div3.className == "close1 openright"){
+            document.getElementById("pay").value = 1;
+          }else{
+            document.getElementById("pay").value = 0;
+          }
+          div3.className=(div3.className=="close1 openright")?"open1 openright":"close1 openright";
+          div4.className=(div4.className=="close2")?"open2":"close2";
+        }
+        // //修改百度编辑器工具栏的宽度
+        document.getElementById("edui1_toolbarbox").style.width = document.getElementById("text-content").offsetWidth;
+        document.getElementById("edui1_toolbarbox").style.width = document.getElementById("text-content").offsetWidth+ "px";
+
+        // //获取新项目整个div据窗口上缘的距离
+        // var newpro = $("#new-pro-bg").offset();
+        // document.getElementById("zong-chu-offset").value = newpro.top; 
+        // //获取百度编辑器工具栏据窗口上缘的距离
+        // var tool = $("#edui1_toolbarbox").offset();
+        // document.getElementById("tool-chu-offset").value = tool.top; 
+        
+        //设置百度编辑器高度为450px,并关闭自动长高
+        UE.getEditor('describe').setHeight(400);
+    }
+     //改变百度编辑器工具栏的位置 定时任务
+      // setInterval("settoolposition()",1000);//1000为1秒钟
+       function settoolposition(){
+        var zongctop = document.getElementById("zong-chu-offset").value;
+        var toolctop = document.getElementById("tool-chu-offset").value;
+        //现总div据上缘距离
+        var newpro = $("#new-pro-bg").offset();
+        var zongntop = newpro.top; 
+        //设置编辑器工具栏的新位置
+        var height = zongctop -zongntop;
+        var size = toolctop - height;
+        document.getElementById("edui1_toolbarbox").style.top=size+"px";
+      }
+  function uploadimg(){
+    // alert('helo');
+    //创建formdata对象
+    var fd=new FormData();
+    //获取文件对象
+    var pic=document.getElementById('coverimg').files[0];
+    //把文件内容追加到表单数据
+    fd.append(pic.name,pic); 
+    //发送数据
+    var xhr=new XMLHttpRequest();
+    xhr.onreadystatechange=function(data)
+      {
+      if (xhr.readyState==4 && xhr.status==200){
+          json_obj = eval('('+xhr.responseText+')');//把JSON字符串转换成JSON对象
+          var img = document.getElementById("img");
+          img.value = json_obj.content;
+        }
+      }
+    xhr.open('POST','{:U('/Admin/index/uploadimg')}',true);
+    xhr.upload.onprogress=function (ev){
+      if(ev.lengthComputable){
+        $("#bar").addClass('addc-bar');
+        $("#upimg").addClass('addc-upimg');
+        var percent=100*ev.loaded/ev.total;
+        // console.log(percent);
+        document.getElementById('bar').style.width=percent+'%';
+        document.getElementById('bar').innerHTML=parseInt(percent)+'%';
+      }
+    }
+    xhr.send(fd);
+    //演示显示在浏览器的效果
+    var debug=document.getElementById('debug');
+    var tempimg=document.createElement('img');
+    tempimg.src=window.URL.createObjectURL(pic);//把二进制对象编程浏览器的资源
+    // document.getElementsByTagName('body')[0].appendChild(tempimg);
+    document.getElementsByTagName("h5")[0].appendChild(tempimg);
+    }
+    //项目表单提交
+    function program_submit(){
+      var cover = document.getElementById("img").value; // 封面图片
+      var title = document.getElementById('title').value; //项目标题
+      // var content = document.getElementById('describe').value; //项目主体内容
+      var content = getContent();
+      var pay = document.getElementById('pay').value; //是否支付
+      var weipay = document.getElementById('weipay').value;
+      var alipay = document.getElementById('alipay').value;
+      var start = document.getElementById('is_start').value;
+      var finish = document.getElementById('is_finish').value;
+      var open = document.getElementById('open').value;
+      $.post("publish_program",{cover:cover,title:title,content:content,pay:pay,weipay:weipay,alipay:alipay,start:start,finish:finish,open:open},function(program){
+          if(program.status == 1){
+              document.getElementById("megmeg").innerHTML = program.content;
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 window.location.href="{:U('Admin/index/list_program')}";
+              },1000);
+              return true;
+          }else{
+              document.getElementById("megimg").innerHTML="X";
+              var content = "未知错误，添加失败！<br/> 请联系管理员！";
+              if(program.content != '' && program.content != null){
+                 content = program.content;
+              }
+              document.getElementById("megmeg").innerHTML = content;
+              document.getElementById("megbtn").style.border="1px solid red";
+              document.getElementById("megimg").style.color="red";
+              document.getElementById("megimg").style.margin="6px 0px 0px 15px";
+              $("#meginfo2").fadeIn();
+              setTimeout(function(){
+                 $("#meginfo2").fadeOut();
+                 $(".back").fadeOut();
+              },1000);
+              return false;
+          }
+        });
+    }
+    function getContent() {
+        var text = UE.getEditor('describe').getContent();
+        // alert(arr.join("\n"));
+        return text;
+    }
+    //取消
+    function cancelo(){
+      window.location.href="{:U('Admin/index/list_program')}";
+    }
+    window.onscroll = function() {
+       console.info(window.screenTop);
+      // alert(window.scrollY);
+    };
+    function go(){
+      var leftPos = (typeof window.screenLeft == 'number')?window.screenLeft:window.screenX;
+      var topPos = (typeof window.screenTop == 'number')?window.screenTop:window.screenY;
+      alert('X: '+leftPos+' Y: '+topPos)
+    }
+    function showtop(){
+     var th =  document.getElementById('new-pro-bg');
+      // alert(th.scrollTop + "--" + th.offsetTop);
+      var height = $("#new-pro-bg").offset();
+      alert(height.top);
+    }
+</script>
+</head>
+<body>
+<!--header-->
+<header>
+ <h1><img src="__PUBLIC__/Admin/images/admin_logo.png"/></h1>
+ <ul class="rt_nav">
+  <!-- <li><a href="http://www.baidu.com" target="_blank" class="website_icon">站点首页</a></li> -->
+  <!-- <li><a href="javascript:void(0);" class="admin_icon" onclick="showtop();">DeathGhost</a></li> -->
+  <!-- <li><a href="javascript:void(0);" class="set_icon" onclick="go();">账号设置</a></li> -->
+  <li><a href="#" class="admin_icon">{$user}</a></li>
+  <li><a href="{:U('Admin/login/logout')}" class="quit_icon">安全退出</a></li>
+ </ul>
+</header>
+
+<!--aside nav-->
+<aside class="lt_aside_nav content mCustomScrollbar">
+ <!-- <h2><a href="index.php">起始页</a></h2> -->
+ <ul>
+  <li>
+   <dl>
+    <dt><a href="{:U('Admin/index/index')}" >会员中心</a></dt>
+    <dt><a href="{:U('Admin/index/new_program')}" class="actived">发布新项目</a></dt>
+    <dt><a href="{:U('Admin/index/list_program')}" >项目列表</a></dt>
+    <dt><a href="{:U('Admin/index/sply_show')}">申请管理</a></dt>
+    <!--当前链接则添加class:active-->
+   <!--  <dd><a href="#" class="active">商品列表</a></dd>
+    <dd><a href="#">商品分类</a></dd>
+    <dd><a href="#">商品属性</a></dd>
+    <dd><a href="#">品牌管理</a></dd> -->
+   </dl>
+  </li>
+  
+ </ul>
+</aside>
+
+<section class="rt_wrap content mCustomScrollbar">
+  <form method="post">
+  <div class="col-sm-6" id="new-pro-bg">
+    <div class="col-sm-7">
+      <h1>新项目</h1>
+      <p>项目是指一独特的、复杂的并相互关联的活动，这些活动有着一个明确的目标或目的，必须在特定的时间、预算、资源限定内，依据规范完成。</p>
+    </div>
+    <div class="col-sm-8"></div>
+    <div class="col-sm-9">
+      <div class="col-sm-01">
+        <div class="col-sm-001">
+          <label for="title">项目名称</label>
+          <input type="text" name="title" id="title" value="" class="form-cotrol">
+          <div>
+              <div class="right-upload">
+                  <label class="label-right" id="labimg" style="">项目缩略图（微信转发链接缩略图）</label>
+                  <div id="upimg">
+                    <label for="coverimg" class="upimg">点击上传封面</label>
+                    <input type="file" name="coverimg" id="coverimg" value="点击上传图片" class="label-right" onchange="uploadimg();">
+                    <div id="bar"></div>
+                  </div>
+                  <div id="debug"></div>
+                  <!-- <div class="clear"></div> -->
+                  <input type="hidden" name="img" id="img" value="">
+                  <label for="describe">项目说明</label>
+              </div>
+              <div class="left-img">
+                <h5></h5>
+              </div>
+          </div>
+          <div class="clear"></div>
+          <!--  项目主体内容  -->
+          <div id="text-content">
+            <textarea name="describe" id="describe"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-02">
+        <label class="col-sm-2 control-label">在线支付</label>
+        <div id="div3" class="open1 openright">
+           <div id="div4" class="open2"></div>
+           <input type="hidden" name="pay" id="pay" value="1">
+        </div>
+        <div class="clear" style="margin-bottom:15px"></div>
+        微&nbsp;&nbsp;&nbsp;&nbsp;信
+        <select class="form-control m-t" id="weipay">
+            <option value="1">系统默认（申请人支付后，可在账户中心中查看收款明细和申请提现）</option>
+            <volist name="weipayment" id="w">
+              <option value="{$w.id}">{$w.payment_name}</option>
+            </volist>
+        </select>
+        <div class="clear"></div>
+        支付宝
+        <select class="form-control m-t" id="alipay">
+            <option value="1">系统默认（申请人支付后，可在账户中心中查看收款明细和申请提现）</option>
+            <volist name="alipayment" id="a">
+            <option value="{$a.id}">{$a.payment_name}</option>
+          </volist>
+        </select>
+        <div class="clear"></div>
+        <label for="title">开始时间</label>
+        <input type="datetime-local" name="is_start" id="is_start" value="{$data.time|default=time()|date='Y-m-d',###} 00:00:00" class="form-cotrol" min="{$data.time|default=time()|date='Y-m-d',###} 00:00:00">
+        <label for="title">结束时间</label>
+        <input type="datetime-local" name="is_finish" id="is_finish" value="{$data.time|default=time()|date='Y-m-d',###} 00:00:00" class="form-cotrol" min="{$data.time|default=time()|date='Y-m-d',###} 00:00:00">
+        <label class="col-sm-2 control-label">是否开启</label>
+        <div id="div1" class="open1 openright">
+           <div id="div2" class="open2"></div>
+           <input type="hidden" name="open" id="open" value="1">
+        </div>
+        <div id="btna">
+           <input type="button" name="sub" id="sub" value="提交" class="btn" onclick="program_submit();">
+           <input type="button" name="cancel" id="cancel" onclick="cancelo();" value="取消" class="btn">
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" name="zong-chu-offset" id="zong-chu-offset" value="">
+  <input type="hidden" name="tool-chu-offset" id="tool-chu-offset" value="">
+  </form>
+</section>
+<section class="meg" id="meginfo2">
+  <div class="meginfo">
+    <div id="megbtn"><h6 id="megimg">√</h6></div>
+    <div id="megmeg">修改成功！</div>
+  </div>
+</section>
+<script type="text/javascript">
+  var ue = new UE.getEditor('describe');
+</script>
+</body>
+</html>

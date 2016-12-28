@@ -1,0 +1,53 @@
+        function userInfo() {
+                //$data = $this->getData();
+                $k = trim($_GET['key']);
+                if($k && $k!='*') {
+                        $where = 'username LIKE "%'.$k.'%" AND shopid="'.get_shop_id().'"';
+                } else {
+                        $where = 'shopid="'.get_shop_id().'"';
+                }
+                $r = D('Member')->where($where)->select();
+
+                foreach($r as $val) {
+                        $str .= '<option value="'.$val['id'].'">'.$val['username'].'</option>';
+                }
+                echo json_encode($str);
+        }
+                //获取企业会员的信息
+        function userInfoCom() {
+                $data = $this->getData();
+                $k = trim($_GET['key']);
+                if($k) {
+                        $where = 'ident LIKE "%'.$k.'%"';
+                } else {
+                        $where = '1=1';
+                }
+                $r = D('Companymember')->where($where)->select();
+                foreach($r as $val) {
+                        $str .= '<option value="'.$val['cmid'].'">'.$val['name'].'</option>';
+                }
+                echo json_encode($str);
+        }
+
+        <?php
+
+if (!defined('THINK_PATH')) exit();
+
+class MemberModel extends Model
+{
+        // 自动验证设置
+    protected $_validate     =     array(
+        /*
+        array('username','require','用户名不能为空！',1),
+                array('password','require','密码不能为空！',1),
+                array('email','require','邮箱地址不能为空！',1),
+        */
+        );
+}
+?>
+~   
+
+function get_shop_id() {
+
+        return isset($_SESSION['shopid']) ? $_SESSION['shopid'] : '';
+}

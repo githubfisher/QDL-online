@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>{$title}</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/page.css" />
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/Admin/js/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+  (function($){
+    $(window).load(function(){
+      
+      $("a[rel='load-content']").click(function(e){
+        e.preventDefault();
+        var url=$(this).attr("href");
+        $.get(url,function(data){
+          $(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+          //scroll-to appended content 
+          $(".content").mCustomScrollbar("scrollTo","h2:last");
+        });
+      });
+      
+      $(".content").delegate("a[href='top']","click",function(e){
+        e.preventDefault();
+        $(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+      });
+      
+    });
+  })(jQuery);
+</script>
+<style>
+  td {
+    text-align: center;
+  }
+  a {
+    color:#333;
+  }
+  .actived{
+    color:#67c1a5;
+  }
+  .zurl{
+    display:none;
+  }
+  p{
+     text-align: center;
+     line-height:24px;
+  }
+  img{
+    width:50px;
+    height:50px;
+  }
+  .meg{
+  display: none;
+  background: rgba(0,0,0,.35);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 102;
+}
+.meginfo{
+  /*width:15%;*/
+  max-width: 405px;
+  /*height:6%;*/
+  margin: 0 auto;
+  padding: 1%;
+  background: #f8f8f8;
+  margin-top: 16%;
+  border-radius: 5px;
+  text-align: center;
+}
+#megbtn{
+  width: 60px;
+  height: 60px;
+  border: 2px solid #67c1a5;
+  border-radius: 100%;
+  float: left;
+  /*margin-left: 5%;*/
+  margin-left: 5%;
+  margin-top: -1%;
+}
+#megbtn h6{
+  color:#67c1a5;
+  font-size: 40px;
+  margin-top:8px;
+  margin-left: 14px;
+}
+#megmeg{
+    line-height: 2em;
+    font-size: 1.9em;
+    margin-left: 15px;
+    position:relative;
+    right:-10px;
+    
+}
+</style>
+</head>
+<body>
+<!--header-->
+<header>
+ <h1><img src="__PUBLIC__/Admin/images/admin_logo.png"/></h1>
+ <ul class="rt_nav">
+  <!-- <li><a href="http://www.baidu.com" target="_blank" class="website_icon">站点首页</a></li> -->
+  <!-- <li><a href="#" class="admin_icon">DeathGhost</a></li> -->
+  <!-- <li><a href="#" class="set_icon">账号设置</a></li> -->
+  <li><a href="#" class="admin_icon">{$user}</a></li>
+  <li><a href="{:U('Admin/login/logout')}" class="quit_icon">安全退出</a></li>
+ </ul>
+</header>
+
+<!--aside nav-->
+<aside class="lt_aside_nav content mCustomScrollbar">
+ <!-- <h2><a href="index.php">起始页</a></h2> -->
+ <ul>
+  <li>
+   <dl>
+    <dt><a href="{:U('Admin/manage/index')}" >用户管理</a></dt>
+    <dt><a href="{:U('Admin/manage/show_program')}" class="actived">项目管理</a></dt> <!-- 总的使用数据统计 各店铺使用情况统计-->
+    <dt><a href="{:U('Admin/manage/show_sply')}">申请数据</a></dt>
+    <dt><a href="{:U('Admin/manage/show_withdraw')}">提现管理</a></dt>
+    <!--当前链接则添加class:active-->
+   <!--  <dd><a href="#" class="active">商品列表</a></dd>
+    <dd><a href="#">商品分类</a></dd>
+    <dd><a href="#">商品属性</a></dd>
+    <dd><a href="#">品牌管理</a></dd> -->
+   </dl>
+  </li>
+  
+ </ul>
+</aside>
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+    
+     <script>
+     $(document).ready(function(){
+    $("#loading").click(function(){
+      $(".loading_area").fadeIn();
+             $(".loading_area").fadeOut(1500);
+      });
+     });
+     </script>
+     <section class="loading_area">
+      <div class="loading_cont">
+       <div class="loading_icon"><i></i><i></i><i></i><i></i><i></i></div>
+       <div class="loading_txt"><mark>数据正在加载，请稍后！</mark></div>
+      </div>
+     </section>
+     <!--结束加载-->
+     <!--弹出框效果-->
+     <script>
+     $(document).ready(function(){
+     //弹出文本性提示框
+     $("#showPopTxt").click(function(){
+       $(".pop_bg").fadeIn();
+       });
+     //弹出：确认按钮
+     $(".trueBtn").click(function(){
+       alert("你点击了确认！");//测试
+       $(".pop_bg").fadeOut();
+       });
+     //弹出：取消或关闭按钮
+     $(".falseBtn").click(function(){
+       alert("你点击了取消/关闭！");//测试
+       $(".pop_bg").fadeOut();
+       });
+     });
+     //复制转发地址
+    function copyurl(obj)
+    {
+      var url = document.getElementById(obj).innerHTML;
+      // alert(url);
+      window.clipboardData.setData("Text",url);
+      alert("已复制链接");
+
+    }
+    //删除
+    function del_program(id){
+      $.post("del_program",{id:id},function(data){
+        if(data.status == 1){
+            document.getElementById("megmeg").innerHTML = data.content;
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+               window.location.reload();
+            },800);
+            return true;
+        }else{
+            document.getElementById("megimg").innerHTML="X";
+            var content = "未知错误，删除失败！<br/> 请联系管理员！";
+            if(data.content != '' && data.content != null){
+               content = data.content;
+            }
+            document.getElementById("megmeg").innerHTML = content;
+            $("#meginfo2").fadeIn();
+            setTimeout(function(){
+               $("#meginfo2").fadeOut();
+            },1000);
+            return false;
+        }
+    });
+    }
+     </script>
+   
+     <section>
+      <br/>
+      <div class="page_title">
+       <h2 class="fl">项目列表</h2>
+       <!-- <a class="fr top_rt_btn" href="{:U('Admin/index/new_program')}">发布新项目</a> -->
+      </div>
+      <table class="table">
+       <tr>
+        <th>序号</th>
+        <th>项目名称</th>
+        <th>封面图</th>
+        <th>转发地址</th>
+        <th>在线支付</th>
+        <th>开启时间</th>
+        <th>结束时间</th>
+        <th>是否开启</th>
+        <th>操作</th>
+       </tr>
+      <volist name="program" id="p">
+       <!-- <tr>
+        <td>1</td>
+        <td>测试项目名称</td>
+        <td><img src="__PUBLIC__/Admin/images/erweicode.png" width="50px" height="50px"></td>
+        <td>
+          <span class="zurl" id="wxurl">www.weixin.com</span><a href="javascript:void(0);" onclick="copyurl('wxurl');">微信转发URL</a>
+          <span class="zurl" id="url">www.baidu.com</span><a href="javascript:void(0);" onclick="copyurl('url');">普通转发URL</a>
+        </td>
+        <td>{$v.time|date='Y-m-d H:i:s',###}</td>
+        <td>{$v.time|date='Y-m-d H:i:s',###}</td>
+        <td>{$v.time|date='Y-m-d H:i:s',###}</td>
+        <td>开启</td>
+       </tr> -->
+       <tr>
+        <td>{$p.id}</td>
+        <td><a href="{:U('Admin/Manage/show_sply',array('id'=>$p['id']))}" title="查看申请数据">{$p.pro_name}</a></td>
+        <td>
+          <if condition="($p.pro_thumb neq '') AND ($p.pro_thumb neq null)"><img src="{$p.pro_thumb}">
+            <else /><img src="/Public/Admin/images/spacer.jpg">
+          </if>
+        </td>
+        <td>
+          <if condition="($p.weixin_url neq '') AND ($p.weixin_url neq null)"> <p><span class="zurl" id="wxurl">{$p.weixin_url}</span><a href="{$p.weixin_url}" target="_blank">微信地址</a></p>
+            <else /> <p></p>
+            </if>
+          <if condition="($p.other_url neq '') AND ($p.other_url neq null)"><p><span class="zurl" id="url">{$p.other_url}</span><a href="{$p.other_url}" target="_blank">普通地址</a></p>
+            <else /> <br>
+          </if>
+        </td>
+        <td> 
+           <if condition="$p.is_pay eq 0"> <p>未开启</p><p></p>
+            <elseif condition="($p.weipay_id eq 0) AND ($p.otherpay_id neq 0)" /> <p>支付宝</p><p></p>
+            <elseif condition="($p.weipay_id neq 0) AND ($p.otherpay_id eq 0)" /><p>微信支付</p><p></p>
+            <else /><p>微信支付</p><p>支付宝</p>
+          </if>
+        </td>
+        <if condition="$p.start_time gt 0"><td>{$p.start_time|date='Y-m-d H:i:s',###}</td>
+          <else /> <td>未正确设置时间</td>
+        </if>
+        <if condition="$p.finish_time gt 0"><td>{$p.finish_time|date='Y-m-d H:i:s',###}</td>
+          <else /> <td>未正确设置时间</td>
+        </if>
+        <if condition="$p.is_start eq 1"><td>开启</td>
+          <else /><td>未开启</td>
+        </if>
+        <td><!-- <a href="{:U('Admin/Index/update_program',array('proid'=>$p['id']))}">编辑</a>  --><a href="javascript:void(0);" onclick="del_program('{$p.id}');">删除</a></td>
+       </tr>
+    </volist>
+      </table>
+      <div class="b-page">{$page}</div>
+     <!--  <aside class="paging">
+       <a>第一页</a>
+       <a>1</a>
+       <a>2</a>
+       <a>3</a>
+       <a>…</a>
+       <a>1004</a>
+       <a>最后一页</a>
+      </aside> -->
+     </section>
+    
+     <!--tabStyle-->
+     <script>
+     $(document).ready(function(){
+     //tab
+     $(".admin_tab li a").click(function(){
+      var liindex = $(".admin_tab li a").index(this);
+      $(this).addClass("active").parent().siblings().find("a").removeClass("active");
+      $(".admin_tab_cont").eq(liindex).fadeIn(150).siblings(".admin_tab_cont").hide();
+     });
+     });
+     </script>
+   
+
+    <!--结束：以下内容则可删除，仅为素材引用参考-->
+ </div>
+</section>
+<section class="meg" id="meginfo2">
+  <div class="meginfo">
+    <div id="megbtn"><h6 id="megimg">√</h6></div>
+    <div id="megmeg">修改成功！</div>
+  </div>
+</section>
+</body>
+</html>

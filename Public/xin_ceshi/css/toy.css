@@ -1,0 +1,57 @@
+@charset="UTF-8";
+*{
+	margin: 0px;
+	padding: 0px;
+}
+html,body{
+	height: 100%;
+	width: 100%;
+}
+ul{
+	list-style-type: none;
+}
+a{
+	text-decoration: none;
+}
+
+/*footer部分*/
+footer{
+	width: 100%;
+	height: 90px;
+	position: fixed;
+	bottom: 0px;
+
+	
+
+}
+footer a{
+	font-size: 20px;
+}
+#footer_nav .nav_li{
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	width: 50%;
+	text-align:center;
+}
+
+button{
+	height: 46px;
+	width: 90%;
+	border-radius: 2px;
+	border: none;
+	color: #fff;
+
+}
+.b1{
+	margin-left: 5%;
+	margin-top: 20px;
+	background: red;
+	color: #fff;
+}
+.b2{
+	margin-left: 5%;
+	margin-top: 20px;
+	background: orange;
+	color: #fff;
+}

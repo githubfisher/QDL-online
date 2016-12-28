@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>{$title}</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/page.css" />
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/Admin/js/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+	(function($){
+		$(window).load(function(){
+			
+			$("a[rel='load-content']").click(function(e){
+				e.preventDefault();
+				var url=$(this).attr("href");
+				$.get(url,function(data){
+					$(".content .mCSB_container").append(data); //load new content inside .mCSB_container
+					//scroll-to appended content 
+					$(".content").mCustomScrollbar("scrollTo","h2:last");
+				});
+			});
+			
+			$(".content").delegate("a[href='top']","click",function(e){
+				e.preventDefault();
+				$(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
+			});
+			
+		});
+	})(jQuery);
+</script>
+<style>
+html,body{
+/*  display:flex;
+  flex-flow:column;
+  width:100%;
+  height:100%;*/
+}
+  td {
+    text-align: center;
+  }
+   a {
+    color:#333;
+  }
+  .actived{
+    color:#67c1a5;
+  }
+  .col-sm-6{
+    margin:25px;
+    height:750px;
+    border:1px solid #E3E5E7;
+  }
+  .col-sm-7{
+    margin:15px;
+    
+  }
+  .col-sm-7 p{
+    font-size:12px;
+    color:#666;
+  }
+  .col-sm-8{
+    border-bottom:1px solid #E3E5E7;
+  }
+  .col-sm-9{
+    /*width:100%;*/
+  }
+  .col-sm-01{
+    float:left;
+    width:60%;
+    /*height:100%;*/
+    border-right:1px solid #E3E5E7;
+  }
+  .col-sm-001{
+     margin: 15px;
+  }
+  .col-sm-02{
+    float:left;
+    margin: 15px;
+    width:35%;
+    height:100%;
+  }
+label {
+  font-weight: normal;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input,textarea{
+  font-size: 14px;
+  line-height: 2.042857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  margin-bottom:15px;
+}
+.form-cotrol{
+  display: block;
+  width: 96%;
+  height: 25px;
+  padding: 6px 12px;
+  
+}
+.label-right{
+  margin-right:70%;
+}
+#coverimg{
+  width:30%;
+  height:30px;
+}
+textarea{
+   width: 96%;
+   height:480px;
+   margin-bottom:15px;
+}
+#btna{
+  margin-bottom:25px;
+  position: absolute;
+  bottom:10px;
+  right:170px;
+}
+.btn{
+  color:#D3E5E7;
+  padding:2px 70px;
+  border:1px solid #E3E5E7;
+  border-radius:2px;
+  /*margin-top:375px;*/
+}
+#sub{
+  margin-left:130px;
+  margin-right: 10px;
+  border:1px solid #19A97B;
+  color:#19A97B;
+}
+.btn:hover{
+  color:white;
+  border:1px solid #19A97B;
+  background:#19A97B;
+}
+#sub:hover{
+  color:white;
+  border:1px solid #19A97B;
+  background:#19A97B;
+}
+.control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: right;
+    }
+.col-sm-2 {
+    /*width: 16.66666667%;*/
+    float:left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    /*padding-left: 15px;*/
+}
+.col-sm-10{
+  width: 8.33333333%;
+  height: 25px;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: 450px;
+  margin-bottom:15px;
+  -webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+.m-r {
+    margin-right: 15px;
+}
+.m-t-xs {
+    margin-top: 5px;
+}
+.ui-switch {
+    cursor: pointer;
+}
+.ui-switch i::before {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    background-color: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 15px;
+    content: "";
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    box-sizing: border-box;
+}
+.ui-switch i::after {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    content: "";
+    -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+    -webkit-transition: margin-left .3s;
+    transition: margin-left .3s;
+    box-sizing: border-box;
+}
+.checkbxx{
+  margin-bottom:5px;
+}
+.form-group::before{
+  display: table;
+  content: " ";
+}
+.form-group::after{
+  clear: both;
+  display: table;
+  content: " ";
+}
+</style>
+<script>
+
+</script>
+</head>
+<body>
+<!--header-->
+<header>
+ <h1><img src="__PUBLIC__/Admin/images/admin_logo.png"/></h1>
+ <ul class="rt_nav">
+  <!-- <li><a href="http://www.baidu.com" target="_blank" class="website_icon">站点首页</a></li> -->
+  <!-- <li><a href="#" class="admin_icon">DeathGhost</a></li> -->
+  <!-- <li><a href="#" class="set_icon">账号设置</a></li> -->
+  <li><a href="#" class="admin_icon">{$user}</a></li>
+  <li><a href="{:U('Admin/login/logout')}" class="quit_icon">安全退出</a></li>
+ </ul>
+</header>
+
+<!--aside nav-->
+<aside class="lt_aside_nav content mCustomScrollbar">
+ <!-- <h2><a href="index.php">起始页</a></h2> -->
+ <ul>
+  <li>
+   <dl>
+    <dt><a href="{:U('Admin/index/index')}" >会员中心</a></dt>
+    <dt><a href="{:U('Admin/index/new_program')}" class="actived">发布新项目</a></dt>
+    <dt><a href="{:U('Admin/index/list')}" >项目列表</a></dt>
+    <dt><a href="{:U('Admin/index/sply_show')}">申请管理</a></dt>
+    <!--当前链接则添加class:active-->
+   <!--  <dd><a href="#" class="active">商品列表</a></dd>
+    <dd><a href="#">商品分类</a></dd>
+    <dd><a href="#">商品属性</a></dd>
+    <dd><a href="#">品牌管理</a></dd> -->
+   </dl>
+  </li>
+  
+ </ul>
+</aside>
+
+<section class="rt_wrap content mCustomScrollbar">
+  <form>
+  <div class="col-sm-6">
+    <div class="col-sm-7">
+      <h1>新项目</h1>
+      <p>项目是指一独特的、复杂的并相互关联的活动，这些活动有着一个明确的目标或目的，必须在特定的时间、预算、资源限定内，依据规范完成。</p>
+    </div>
+    <div class="col-sm-8"></div>
+    <div class="col-sm-9">
+      <div class="col-sm-01">
+        <div class="col-sm-001">
+          <label for="title">项目名称</label>
+          <input type="text" name="title" id="title" value="" class="form-cotrol">
+          <label for="title" class="label-right">项目封面图</label>
+          <input type="button" name="coverimg" id="coverimg" value="点击上传图片" class="label-right">
+          <label for="describe">项目说明</label>
+          <textarea name="describe" id="describe" ></textarea>
+          
+          
+        </div>
+      </div>
+      <div class="col-sm-02">
+        <label class="col-sm-2 control-label">是否开启</label>
+          <div class="col-sm-10">
+            <label class="ui-switch m-t-xs m-r">
+              <input checked="" type="checkbox" class="checkbxx">
+              <i></i>
+            </label>
+          </div>
+        <label for="title">开始时间</label>
+        <input type="datetime-local" name="is_start" id="is_start" value="" class="form-cotrol">
+        <label for="title">结束时间</label>
+        <input type="datetime-local" name="is_start" id="is_start" value="" class="form-cotrol">
+        <label class="col-sm-2 control-label">在线支付</label>
+          <div class="col-sm-10">
+            <label class="ui-switch m-t-xs m-r">
+              <input checked="" type="checkbox" class="checkbxx">
+              <i></i>
+            </label>
+          </div>
+        <div id="btna">
+           <input type="button" name="sub" id="sub" value="提交" class="btn">
+           <input type="button" name="cancel" id="cancel" value="取消" class="btn">
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</section>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- 移动端页面设置 -->
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"/>
+	<title>{$title}</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/xin_ceshi/css/toy.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/xin_ceshi/css/nr.css">
+	<!--必要样式-->
+	<link href="__PUBLIC__/xin_ceshi/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/xin_ceshi/css/city-picker.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/xin_ceshi/css/mobile_base.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/xin_ceshi/css/mobile_new.css">
+	<style type="text/css">
+		input{
+			border: none;
+			border-radius: 0;
+			padding-left: 10px;
+		}
+		.ys{
+			height: 40px;
+			width: 90%;
+			border-bottom: 1px solid #ccc;
+			margin-top: 10px;
+			margin-left: 5%;
+		}
+		.pclass{
+			border-bottom: 1px solid #bbb;
+			height: 40px;
+			padding-left: 10px;
+			line-height: 50px;
+			width: 94%;
+			margin-left: 2%;
+		}
+		span{
+			width: 90%;
+			height: 34px;
+			line-height: 33px;
+			margin-left:5%;
+		}
+		h5{
+			line-height: 50px;
+			padding-left: 10px;
+		}
+		.yc{
+			display: none;
+		}
+		img{width: 100%;	
+		}
+		.sss{
+			width:60px; 
+			height: 60px; 
+			border-radius: 30px; 
+			margin: 10px;
+			box-shadow: 1px 1px 8px rgba(0,0,0,0.6);
+		}
+		#happy{
+			margin-top: -26px;
+			height: 53px;
+			padding-left:40px;
+			margin-left:40px;
+		}
+		#happy h5{
+			color: #fff;
+			line-height: 36px;
+			font-size: 16px; 
+			float: left; 
+		}
+		#zhichi{
+		    width: 100%;
+		    text-align: center;
+		    margin-top: 30px;
+		}
+		#btnApply{
+
+		}
+	</style>
+	<script>
+		//修正移动抢定公告在普通非微信浏览器中的位置
+		// $(document).ready(function(){
+		// 	var cpu = document.getElementById("cpu").value;
+		// 	alert(cpu);
+		// 	if(cpu == "other"){
+		// 		document.getElementById("happy").style.marginTop="-36px";
+		// 	}
+		// });
+		// $(window).load(function(){
+		// 	var cpu = document.getElementById("cpu").value;
+		// 	alert(cpu);
+		// 	if(cpu == "other"){
+		// 		document.getElementById("happy").style.marginTop="-36px";
+		// 	}
+		// });
+        // 验证姓名
+        // $('#name').blur(function(){
+        //     var str =  $('#name').val();
+        //     var txtLength;
+        //     obj = str.match(/[^\x00-\xff]/g);
+        //     if (obj != null) {
+        //         txtLength = obj.length + str.length;
+        //     }
+        //     else {
+        //         txtLength = str.length;
+        //     }
+        //     if (txtLength > 10) {
+        //         alert("名字不能超过10个英文字母或5个汉字!");
+        //         return false;
+        //     } else {
+        //         return true;
+        //     }
+        // });
+        // //验证手机号
+        // $('#phone').blur(function(){
+        //    var tel=$('#phone').val().match(/^1[3578]{1}\d{9}$/);
+        //     if(!tel){
+        //         alert("请输入正确的手机号");
+        //           return false;
+        //     }
+        // });
+       function splysub(){
+	        	var str = document.getElementById('name').value; // $('#name').val();
+	            var tel= document.getElementById('phone').value;  //$('#phone').val();  // .match(/^1[3578]{1}\d{9}$/)
+	            var province= document.getElementById('city-picker3').value;  //$('#city-picker3').val();
+	            if(!province){
+	                alert("请您选择申请代理的地区");
+	                  return false;
+	            }
+	            if(!str){
+	                alert("请输入姓名");
+	                  return false;
+	            }
+	            if(!tel){
+	                alert("请输入正确的手机号");
+	                  return false;
+	            }
+	            $("#splyform").submit();
+	        
+        }  
+        function query(){
+        	// alert('hello');
+        	window.location.href="{:U('Home/Agents/query')}";
+        }   
+  //       $("#btnApply").one("click",function(){
+ 	// 		 _click($(this));
+		// });
+		// function _click(obj){
+		//   	//你的代码块
+		//   	var str = document.getElementById('name').value; // $('#name').val();
+  //           var tel= document.getElementById('phone').value;  //$('#phone').val();  // .match(/^1[3578]{1}\d{9}$/)
+  //           var province= document.getElementById('city-picker3').value;  //$('#city-picker3').val();
+  //           if(!province){
+  //               alert("请您选择申请代理的地区");
+  //                 return false;
+  //           }
+  //           if(!str){
+  //               alert("请输入姓名");
+  //                 return false;
+  //           }
+  //           if(!tel){
+  //               alert("请输入正确的手机号");
+  //                 return false;
+  //           }
+  //           $("#splyform").submit();
+
+		//   settimeOut(function(){
+		//    	$("#btnApply").one("click",function(){
+		//      _click(obj);
+		//   	});
+		//   },500);
+		//  } 
+		function sply_ajax(){
+			// alert('yeall');
+			document.getElementById("btnApply").style.background="#c54444";
+			var area = document.getElementById("city-picker3").value;
+			var store = document.getElementById("store").value;
+			var name = document.getElementById("name").value;
+			var phone = document.getElementById("phone").value;
+			var qq = document.getElementById("qq").value;
+			var WIDout_trade_no = document.getElementById("WIDout_trade_no").value;
+			var WIDtotal_fee = document.getElementById("WIDtotal_fee").value;
+			var WIDbody = document.getElementById("WIDbody").value;
+			var WIDshowurl = document.getElementById("WIDshowurl").value;
+			var payid = document.getElementById("payid").value;
+			var pid = document.getElementById("pid").value;
+			var uid = document.getElementById("uid").value;
+			var cpu = document.getElementById("cpu").value;
+			if(!area){
+	                alert("请您选择申请代理的地区");
+	                  return false;
+	            }
+	             if(!store){
+	                alert("请输入店铺名称");
+	                  return false;
+	            }
+	            if(!name){
+	                alert("请输入姓名");
+	                  return false;
+	            }
+	            if(!phone){
+	                alert("请输入正确的手机号");
+	                  return false;
+	            }
+			if(cpu == 'other'){
+				var url = "http://qdl.bjletu.com/index.php/home/other/sply";
+			}else{
+				var url = "http://qdl.bjletu.com/index.php/home/weixin/sply";
+			}
+			$.post(url,{area:area,WIDout_trade_no:WIDout_trade_no,WIDtotal_fee:WIDtotal_fee,WIDbody:WIDbody,WIDshowurl:WIDshowurl,payid:payid,pid:pid,uid:uid,cpu:cpu,store:store,name:name,phone:phone,qq:qq},function(data){
+				if(data.status == 1){
+					var content = data.content;
+					alert(content);
+					window.location.href="{:U('Home/index/show_hot/id/"+data.sply+"')}";
+				}else{
+					var content = data.content;
+					alert(content);
+				}
+
+			});
+		}   
+	</script>
+</head>
+<body>
+	<!--表单页 -->
+	<div style="position: fixed; background: rgba(0,0,0,0.5); height:40px; width: 100%;">
+		<img src="__PUBLIC__/xin_ceshi/img/msg.gif" alt="" style="width:24px; margin-top: 8px; margin-left:10px; float: left;" >
+		<marquee id="happy" direction="left" scrollamount="3"> <h5>{$happy}</h5></marquee>
+	</div>
+	<a href="#" id="nav_home"><img class="letu" src="__PUBLIC__/xin_ceshi/img/nav_btn_home.png"></a>
+	<div id="nav-btn-fix" class="nav-btn nav-btn-fix none" style="display: block;">
+		<img class="letu" src="__PUBLIC__/xin_ceshi/img/nav_btn_bg.jpg">
+	</div>
+	<div class="nav-slider fl w none">
+		<div class="nav-btn">
+			<img src="__PUBLIC__/xin_ceshi/img/nav_btn_bg.jpg">
+		</div>
+		<b class="bg"></b>
+		<div class="nav-slider-inner fl" style="margin-left: 0px;">
+			<dl>
+				<dt>
+					<a class="fl" href="#">{$store}</a>
+				</dt>
+				<dd>
+								<a class="fl" href="tel:{$hotline}"><img src="__PUBLIC__/xin_ceshi/img/sj.png" alt="" style="width:40px; margin-left: 10px;"></a>
+								<a class="fr" href="http://wpa.qq.com/msgrd?V=1&Uin={$qq}&Site"><img src="__PUBLIC__/xin_ceshi/img/qq.png" alt="" style="width:40px;margin-right: 10px;"></a>
+							</dd>
+				<dd>
+					<a class="fl" href="tel:{$hotline}">联系客服</a>
+					<a class="fr" href="http://wpa.qq.com/msgrd?V=1&Uin={$qq}&Site">在线问答</a>
+				</dd>
+			</dl>
+				<div class="nav-slider-ew fl w" style="padding-bottom: 20px;">
+					<img src="{$erweicode}">
+						长按关注官方微信
+				</div>
+		</div>
+	</div>
+	<div>
+		<section>
+			{$describe}
+		</section>
+		<!-- <img src="__PUBLIC__/xin_ceshi/img/ct.jpg" alt=""> -->
+		<div id="sp"></div>
+		<div style="height: 100px;">
+			<div class="yomibox" data="{$deadline}" style="margin: 10px 6%;" ><i>活动倒计时:</i><br>
+					<ul class="yomi">
+						<li class="yomiday">20</li>
+						<li class="split">天</li>
+						<li class="yomihour">14</li>
+						<li class="split">时</li>
+						<li class="yomimin">58</li>
+						<li class="split">分</li>
+						<li class="yomisec">55</li>
+						<li class="split">秒</li>
+					</ul>
+				</div>
+		</div>
+
+			<P class="pclass">地区代理申请</P>
+			<section>
+				<form action="{$action}" id="splyform" method="post"> <!-- onsubmit="submitt();"> -->
+					<div style="position: relative; margin-left:0%;width:94%;">
+						<input id="city-picker3" name="area" class="form-control" readonly type="text" value="1111111" data-toggle="city-picker" placeholder="选择地址"  style="width:95%;">
+					</div>
+					<div class="ys yc"><h5>{$trade.fee} 元</h5></div>
+					<input type="text" class="ys" id="store" name="store" value="" placeholder="填写店铺名称">
+					<input type="text" class="ys" id="name" name="name" value="" placeholder="填写您的姓名">
+					<input type="tel" class="ys" id="phone" name="phone" value="" placeholder="输入手机号">
+					<input type="tel" class="ys" id="qq" name="qq" value="" placeholder="输入QQ号">
+					<input type="hidden" name="WIDout_trade_no" id="WIDout_trade_no" value="{$trade.tradeno}">
+					<input type="hidden" name="WIDsubject" id="WIDsubject" value="{$trade.subject}">
+					<input type="hidden" name="WIDtotal_fee" id="WIDtotal_fee" value="{$trade.fee}">
+					<input type="hidden" name="WIDbody" id="WIDbody" value="{$trade.boby}">	
+					<input type="hidden" name="WIDshowurl" id="WIDshowurl" value="{$url}?id={$pid}">
+					<input type="hidden" name="payid" id="payid" value="{$payid}"><!-- 支付方式id -->
+					<!-- 支付id -->
+					<input type="hidden" name="pid" id="pid" value="{$pid}"><!-- 项目id -->
+					<input type="hidden" name="uid" id="uid" value="{$uid}"><!-- 用户id -->
+					<input type="hidden" name="cpu" id="cpu" value="{$cpu}"><!-- 处理浏览器器类型 微信或普通-->
+					<!-- <input type="button" value="提交" onclick="this.disabled=true;this.form.submit()">  -->
+					<!-- <input type="submit" value="提交" > -->
+				</form>
+					<button class="b1" id="btnApply" onclick="sply_ajax();">{$btn}</button>
+					<!-- onclick="submitt(); " -->
+					<!-- <button class="b2" onclick="query();"><a href="javascript:void(0);">查询区域保护详情</a></button> -->
+			</section>
+			<section style="display:none">
+				<span id="tip">{$tip}</span> <!-- 提示 -->
+				<span id=""></span>  
+			</section>
+			<div id="zhichi">
+				<p>
+					<a href="http://www.zcsmkj.com/" title="">技术支持:北京智诚数码科技</a>
+				</p>
+			</div>
+	</div>
+	<footer >
+	<div class="sss">
+		<a href="#sp"><img src="__PUBLIC__/xin_ceshi/img/lj.png" alt=""></a>
+	</div>
+	</footer>
+	<div style="width:100%; height:100px;"></div>
+	<script src="__PUBLIC__/xin_ceshi/js/jquery.js"></script>
+	<script src="__PUBLIC__/xin_ceshi/js/bootstrap.js"></script>
+	<script src="__PUBLIC__/xin_ceshi/js/city-picker.data.js"></script>
+	<script src="__PUBLIC__/xin_ceshi/js/city-picker.js"></script>
+	<script src="__PUBLIC__/xin_ceshi/js/main.js"></script>
+	<script src="__PUBLIC__/xin_ceshi/js/new_show.js"></script>
+	<script src="__PUBLIC__/xin_ceshi/js/time.js"></script>
+<!-- 	// <script src="http://cdn.centos2.owl-go.com/assets/js/jweixin-1.0.0.js"></script>
+	// <script type="text/javascript" src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script> -->
+</body>
+</html>

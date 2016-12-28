@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>{$title}</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/page.css" />
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/Admin/js/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery.js"></script>
+<script src="__PUBLIC__/Admin/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<style>
+  td {
+    text-align: center;
+  }
+  a {
+    color:#333;
+  }
+  .actived{
+    color:#67c1a5;
+  }
+  .zurl{
+    display:none;
+  }
+  p{
+     text-align: center;
+     line-height:24px;
+  }
+  img{
+    width:50px;
+    height:50px;
+  }
+  .meg{
+  display: none;
+  background: rgba(0,0,0,.35);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 102;
+}
+.meginfo{
+  /*width:15%;*/
+  max-width: 405px;
+  /*height:6%;*/
+  margin: 0 auto;
+  padding: 1%;
+  background: #f8f8f8;
+  margin-top: 16%;
+  border-radius: 5px;
+  text-align: center;
+}
+#megbtn{
+  width: 60px;
+  height: 60px;
+  border: 2px solid #67c1a5;
+  border-radius: 100%;
+  float: left;
+  /*margin-left: 5%;*/
+  margin-left: 5%;
+  margin-top: -1%;
+}
+#megbtn h6{
+  color:#67c1a5;
+  font-size: 40px;
+  margin-top:8px;
+  margin-left: 14px;
+}
+#megmeg{
+    line-height: 2em;
+    font-size: 1.9em;
+    margin-left: 15px;
+    position:relative;
+    right:-10px;
+    
+}
+.note{
+  background: #6edeba;
+  /*color:#fff;*/
+}
+.pass_time{
+  background:#39e6e6;
+}
+</style>
+</head>
+<body>
+<!--header-->
+<header>
+ <h1><img src="__PUBLIC__/Admin/images/admin_logo.png"/></h1>
+ <ul class="rt_nav">
+  <!-- <li><a href="http://www.baidu.com" target="_blank" class="website_icon">站点首页</a></li> -->
+  <!-- <li><a href="#" class="admin_icon">DeathGhost</a></li> -->
+  <!-- <li><a href="#" class="set_icon">账号设置</a></li> -->
+  <li><a href="#" class="admin_icon">{$user}</a></li>
+  <li><a href="{:U('Admin/login/logout')}" class="quit_icon">安全退出</a></li>
+ </ul>
+</header>
+
+<!--aside nav-->
+<aside class="lt_aside_nav content mCustomScrollbar">
+ <!-- <h2><a href="index.php">起始页</a></h2> -->
+ <ul>
+  <li>
+   <dl>
+    <dt><a href="{:U('Admin/manage/index')}" >用户管理</a></dt>
+    <dt><a href="{:U('Admin/manage/show_program')}" >项目管理</a></dt> <!-- 总的使用数据统计 各店铺使用情况统计-->
+    <dt><a href="{:U('Admin/manage/show_sply')}">申请数据</a></dt>
+    <dt><a href="{:U('Admin/manage/show_withdraw')}" class="actived">提现管理</a></dt>
+    <!--当前链接则添加class:active-->
+   <!--  <dd><a href="#" class="active">商品列表</a></dd>
+    <dd><a href="#">商品分类</a></dd>
+    <dd><a href="#">商品属性</a></dd>
+    <dd><a href="#">品牌管理</a></dd> -->
+   </dl>
+  </li>
+  
+ </ul>
+</aside>
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+     <script>
+    //更新提现申请状态
+    function update(wid,type){
+      $.post("update_withdraw",{wid:wid,type:type},function(data){
+        if(data.status == 1){
+          document.getElementById("megmeg").innerHTML = '修改成功!';
+          $(".meg").fadeIn();
+          setTimeout(function(){
+            $(".meg").fadeOut();
+            window.location.reload();
+          },800);
+        }else{
+          document.getElementById("megmeg").innerHTML = '修改失败!';
+          $(".meg").fadeIn();
+          setTimeout(function(){
+            $(".meg").fadeOut();
+          },800);
+        }
+      });
+    }
+     </script>
+   
+     <section>
+      <br/>
+      <div class="page_title">
+       <h2 class="fl">提现列表</h2>
+       <!-- <a class="fr top_rt_btn" href="{:U('Admin/index/new_program')}">发布新项目</a> -->
+      </div>
+      <table class="table" id="withdraw">
+       <tr>
+        <th>序号</th>
+        <th>店铺名称</th>
+        <th>手机号</th>
+        <th>QQ号</th>
+        <th>提现金额</th>
+        <th>开户名</th>
+        <th>银行账号</th>
+        <th>开户支行</th>
+        <th>申请时间</th>
+        <th>处理用时</th>
+        <th>状态</th>
+        <th>操作</th>
+       </tr>
+      <volist name="withdraw" id="p">
+       <tr>
+        <td>{$p.id}</td>
+        <td>{$p.store_name}</td>
+        <td>{$p.phone}</td>
+        <td>{$p.qq}</td>
+        <td class="note">{$p.sum}</td>
+        <td class="note">{$p.name}</td>
+        <td class="note">{$p.account}</td>
+        <td class="note">{$p.branch}</td>
+        <if condition="$p.sply_time gt 0"><td>{$p.sply_time|date='Y-m-d H:i:s',###}</td>
+          <else /><td>未知时间</td>
+        </if>
+        <td class="pass_time" style="background:{$p.background};color:{$p.color}">{$p.pass_time}</td>
+        <if condition="$p.status eq '1'"><td>已处理</td>
+          <else /><td style="background:{$p.background};color:{$p.color}">未处理</td>
+        </if>
+        <if condition="$p.status eq '0'"><td><a href="javascript:void(0);" onclick="update('{$p.id}','1')">转账</a></td>
+         <else /><td><a href="javascript:void(0);" onclick="update('{$p.id}','2')">撤销</a></td>
+       </if>
+       </tr>
+    </volist>
+      </table>
+      <div class="b-page">{$page}</div>
+     <!--  <aside class="paging">
+       <a>第一页</a>
+       <a>1</a>
+       <a>2</a>
+       <a>3</a>
+       <a>…</a>
+       <a>1004</a>
+       <a>最后一页</a>
+      </aside> -->
+     </section>
+    
+     <!--tabStyle-->
+     <script>
+     $(document).ready(function(){
+     //tab
+     $(".admin_tab li a").click(function(){
+      var liindex = $(".admin_tab li a").index(this);
+      $(this).addClass("active").parent().siblings().find("a").removeClass("active");
+      $(".admin_tab_cont").eq(liindex).fadeIn(150).siblings(".admin_tab_cont").hide();
+     });
+     });
+     //秒表效果 START
+      var table = document.getElementById("withdraw");
+      var colums = table.rows[0].cells.length; //列数
+      var rows = table.rows.length; //行数
+      setInterval("flash_time()",1000);
+      function flash_time(){
+        for(var i=1;i<rows;i++){
+          var m = colums - 2;
+          var status = table.rows[i].cells[m].innerHTML;
+          // alert(status);//debug
+          if(status == '未处理'){
+            var n = colums-3;
+            var text = table.rows[i].cells[n].innerHTML;
+            if(text.indexOf("秒") == 3){
+              var sec = text.substr(0,2);
+              sec++;
+              if(sec<10){
+                table.rows[i].cells[n].innerHTML = "0"+sec+"秒"
+              }else if(sec<60){
+                table.rows[i].cells[n].innerHTML = sec+"秒"
+              }else{
+                table.rows[i].cells[n].innerHTML = "01分00秒";
+              }
+            }else if(text.indexOf("分") == 3){
+              var sp = text.indexOf("秒") - 2;
+              var sec = text.substr(sp,2);
+              var mit = text.substr(0,2);
+              sec++;
+              if(sec<10){
+                table.rows[i].cells[n].innerHTML = mit+"分"+"0"+sec+"秒";
+              }else if(sec<60){
+                table.rows[i].cells[n].innerHTML = mit+"分"+sec+"秒";
+              }else{
+                mit++;
+                if(mit<10){
+                  table.rows[i].cells[n].innerHTML = "0"+mit+"分00秒";
+                }else if(mit<60){
+                  table.rows[i].cells[n].innerHTML = mit+"分00秒";
+                }else{
+                  table.rows[i].cells[n].innerHTML = "01时00分00秒";
+                }
+              }
+            }else if(text.indexOf("时") == 3){
+              var sp = text.indexOf("秒") - 2;
+              var sec = text.substr(sp,2);
+              var mp = text.indexOf("分") - 2;
+              var mit = text.substr(mp,2);
+              var hour = text.substr(0,2);
+              sec++;
+              if(sec<10){
+                table.rows[i].cells[n].innerHTML = hour+"时"+mit+"分"+"0"+sec+"秒";
+              }else if(sec<60){
+                table.rows[i].cells[n].innerHTML = hour+"时"+mit+"分"+sec+"秒";
+              }else{
+                mit++;
+                if(mit<10){
+                  table.rows[i].cells[n].innerHTML = hour+"时"+"0"+mit+"分00秒";
+                }else if(mit<60){
+                  table.rows[i].cells[n].innerHTML = hour+"时"+mit+"分00秒";
+                }else{
+                  hour++;
+                  if(hour < 10){
+                    table.rows[i].cells[n].innerHTML = "0"+hour+"时"+"00分00秒";
+                  }else if(hour < 60){
+                    table.rows[i].cells[n].innerHTML = hour+"时"+"00分00秒";
+                  }else{
+                    table.rows[i].cells[n].innerHTML = "01天00时00分00秒";
+                  }
+                }
+              }
+            }else{
+              var sp = text.indexOf("秒") - 2;
+              var sec = text.substr(sp,2);
+              var mp = text.indexOf("分") - 2;
+              var mit = text.substr(mp,2);
+              var hp = text.indexOf("时") - 2;
+              var hour = text.substr(hp,2);
+              var dp = text.indexOf("天");
+              var day = text.substr(0,dp);
+              // alert(day); //debug
+              sec++;
+              if(sec<10){
+                table.rows[i].cells[n].innerHTML = day+"天"+hour+"时"+mit+"分"+"0"+sec+"秒";
+              }else if(sec < 60){
+                table.rows[i].cells[n].innerHTML = day+"天"+hour+"时"+mit+"分"+sec+"秒";
+              }else{
+                mit++;
+                if(mit<10){
+                  table.rows[i].cells[n].innerHTML = day+"天"+hour+"时"+"0"+mit+"分00秒";
+                }else if(mit<60){
+                  table.rows[i].cells[n].innerHTML = day+"天"+hour+"时"+mit+"分00秒";
+                }else{
+                  hour++
+                  if(hour<10){
+                    table.rows[i].cells[n].innerHTML = day+"天"+"0"+hour+"时00分00秒";
+                  }else if(hour<60){
+                    table.rows[i].cells[n].innerHTML = day+"天"+hour+"时00分00秒";
+                  }else{
+                    day++;
+                    if(day<10){
+                      table.rows[i].cells[n].innerHTML = "0"+day+"天"+"00时00分00秒";
+                    }else{
+                      table.rows[i].cells[n].innerHTML = day+"天"+"00时00分00秒";
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+     //秒表效果 END
+     </script>
+   
+
+    <!--结束：以下内容则可删除，仅为素材引用参考-->
+ </div>
+</section>
+<section class="meg" id="meginfo2">
+  <div class="meginfo">
+    <div id="megbtn"><h6 id="megimg">√</h6></div>
+    <div id="megmeg">修改成功！</div>
+  </div>
+</section>
+</body>
+</html>

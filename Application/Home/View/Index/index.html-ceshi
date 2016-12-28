@@ -1,0 +1,21 @@
+<html>
+<head>
+	<title>ceshi</title>
+	<script src="__PUBLIC__/xin_ceshi/js/jquery.js"></script>
+	<script>
+	var b = "true";
+		function tijiao(){
+			alert(b);
+			$("#sply").submit();
+		}
+	</script>
+</head>
+<body>
+	<form id="sply" method="post" action="/index.php/Home/Weixin/prepay.html">
+		<input type="text" name="name" value="">
+		<input type="text" name="id" value="">
+		<!-- <input type="submit" name="tij" value="tijiao"> -->
+		<input type="button" value="提交" onclick="tijiao()"> 
+	</form>
+</body>
+</html>

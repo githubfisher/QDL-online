@@ -1,0 +1,181 @@
+<?php
+/*
+    因为存在二维码地址，所以和URL访问符号"/"冲突，所以改用在分函数中重新查询
+*/
+namespace Home\Controller;
+use Think\Controller;
+class IndexController extends Controller {
+    public function index(){
+    	$ua = $_SERVER['HTTP_USER_AGENT'];
+    	if(!strpos($ua,'MicroMessenger')){ //判断浏览器类型
+    		$weixin = FALSE;
+    		logger('非微信浏览器访问！');
+    	}else{
+    		$preg = "/MicroMessenger\/(.+)/";
+    		preg_match_all($preg,$ua,$new_cnt);
+    		$weixin = TRUE;
+    		$weixin_vision = "".$new_cnt[1][0]."\n";
+    		logger('微信浏览器访问，版本'.$weixin_vision);
+    	}
+    	if(strpos($ua,'Android')){
+    		$mobile_phone = 'Android';
+    		logger('安卓系统');
+    	}elseif(strpos($ua,'iphone OS')){
+    		$mobile_phone = 'iOS';
+    		logger('苹果iOS');
+    	}else{
+    		$mobile_phone = 'other_mobile_phone';
+    		logger('其他系统');
+    	}
+    	$post = I();
+    	$pro_id = $post['id']; 
+    	logger('用户访问项目（项目ID: '.!empty($pro_id) ? $pro_id : '空'.' ）申请页面');
+    	$program = D('program');
+    	$where = array(
+    		'id' => $pro_id
+    	);
+    	$result = $program->where($where)->find();
+    	if($result){
+    		if($result['is_start'] == 0){
+                logger('访问的项目尚未启动！'."\n");
+    			$this->error('您要申请的项目尚未开启，请随时关注！');
+    		}
+            $where = array(
+                'id' => $result['uid']
+            );
+            $admin = D('admin');
+            $store = $admin->where($where)->field('realname,phone,store_name,ercode,qq')->find();
+            // 若店铺查找不到，说明项目记录中的店铺id非法
+            if(!$store){
+                $this->error('非法店铺ID！');
+            }
+    		//是否是在微信端打开了非微信的URL地址
+	    	if(!$post['weixin'] && $weixin){ //非微信url，是微信浏览器。跳转到微信URL
+                logger('微信中打开了非微信url');
+                //判断项目是否需要调用支付
+                if($result['is_pay'] == 1){
+                    logger('该项目需要支付');
+                    //判断项目是否开通的微信支付
+                    if(!empty($result['weipay'])){
+                        //在数据库记录找到微信的url，并跳转
+                        redirect($result['weixin_url'],1,'成功打开，正在为您跳转......'); //跳转到微信的url
+                    }else{
+                        logger('该项目未开通微信支付，提示用户改用其他浏览器，以便调用支付宝');
+                        $_GET['tip'] = '1'; //提示用户更换其他浏览器
+                        $info = array_merge($_GET,$store,$result); //合并参数数组
+                        $_GET['pro'] = json_encode($info);
+                        $this->redirect('Index/weixin',$_GET);
+                    }
+                }else{
+                    logger('该项目不需要支付，请用户继续浏览');
+                    $info = array_merge($store,$result); //合并参数数组
+                    $_GET['pro'] = json_encode($info);
+                    $this->redirect('Index/weixin',$_GET);
+                    //$this->display('Index/other/templet1'); //可以在数据库中存储模板地址，在这里以变量显示
+                }
+	    	}elseif($post['weixin'] && !$weixin){ // 微信url， 非微信浏览器
+                logger('非微信浏览器打开微信的url');
+                //判断项目是否需要调用支付
+                if($result['is_pay'] == 1){
+                    logger('该项目需要支付');
+                    //判断项目是否开通的微信支付
+                    if(!empty($result['weipay'])){
+                        logger('该项目开通了微信支付，提示用户改用微信打开链接！');
+                        $_GET['tip'] = '1'; //提示用户更换为微信浏览器
+                        $info = array_merge($_GET,$store,$result); //合并参数数组
+                        $_GET['pro'] = json_encode($info);
+                        $this->redirect('Index/other',$_GET);
+                    }
+                    $info = array_merge($store,$result); //合并参数数组
+                    $_GET['pro'] = json_encode($info);
+                    // 其实也可以提示一下，虽然没有支付问题，但如果有获取openID问题，也会少获取一些信息
+                    $this->redirect('Index/other',$_GET); //没有设置微信支付,把微信url当做普通url来用
+                }else{
+                    $info = array_merge($store,$result); //合并参数数组
+                    $_GET['pro'] = json_encode($info);
+                    // 其实也可以提示一下，虽然没有支付问题，但如果有获取openID问题，也会少获取一些信息
+                    $this->redirect('Index/other',$_GET); //项目不需要支付,把微信url当做普通url来用
+                }
+	    	}else{
+                //在正确的浏览器中打开了正确的URL
+		    	if($weixin){
+                    logger('使用微信浏览器打开微信url');
+                    $info = array_merge($store,$result); //合并参数数组
+                    $_GET['pro'] = json_encode($info);
+		    		$this->redirect('Index/weixin',$_GET);
+		    	}else{
+                    $info = array_merge($store,$result); //合并参数数组
+                    $_GET['pro'] = json_encode($info);
+                    logger('使用非微信浏览器打开非微信url');
+                    // logger('传送参数：'.var_export($info,TRUE)); //debug
+		    		$this->redirect('Index/other',$_GET);
+		    	}
+	    	}  
+    	}else{
+            // $this->redirect('Index/test',$_GET); //test
+           // redirect('http://www.baidu.com',1,'跳转'); //test
+    		$this->error('您要申请的项目不存在，请查证！');
+    	}
+    }
+    //GET传参，可能会存在超出长度限制的情况！！！ -->此时需要借助memcache或重新查询数据库来解决参数问题。
+    //微信浏览器处理函数
+    public function weixin(){
+    	logger('微信浏览器处理访问===》');
+    	$post = $_GET;
+        logger('携带参数：'.var_export($post,TRUE)); //debug
+    	if($post['is_pay'] == 1){ //是否支付
+    		logger('项目需要支付');
+			$pay = D('payment');
+			$where = array(
+				'id' => $post['weipay_id']
+			);	
+    	}
+		// $templet = 'Index/weixin/templet'.$post['templet_id'];
+        $templet = 'Index/index';
+		$this->assign('');
+ 		$this->display($templet); 
+    }
+    //非微信浏览器处理函数
+    public function other(){
+    	logger('普通浏览器处理访问===》');
+    	$post = $_GET;
+        $pid = $post['id']; //项目id 
+        logger('携带参数：'.var_export($post,TRUE)); //debug
+        $pro = json_decode($_GET['pro'],TRUE);
+    	if($pro['is_pay'] == 1){ //是否支付
+    		logger('项目需要支付');
+			$pay = D('payment');
+			$where = array(
+				'id' => $pro['otherpay_id'] //支付宝支付id
+			);	
+    	}
+        $sply = D('sply');
+        $where = array('pro_id'=>$pid,'is_qd'=>1);
+        $sply_user = $sply->where($where)->select();
+        // $s = $sply->getLastsql(); //debug
+        // logger($s); //debug
+        // logger('抢订名单'.var_export($sply_user,TRUE)); //debug
+        $happy = '';
+        foreach($sply_user as $k => $v){
+            if($k == 9){
+                break;
+            }else{
+                $happy .= '恭喜'.$v['sply_store_name'].$v['sply_name'].'抢订'.$v['sply_area'].'的代理权！  ';
+            }
+        }
+		// $templet = 'Index/other/templet'.$pro['templet_id'];
+        $templet = 'Index/index';
+		$this->assign('title',$pro['pro_title']); //项目标题
+        $this->assign('happy',$happy); //已成功抢定的地区信息
+        $this->assign('store',$pro['store_name']);
+        $this->assign('hotline',$pro['phone']);
+        $this->assign('qq',$pro['qq']);
+        $this->assign('erweicode',$pro['ercode']);
+        $this->assign('deadline',date('Y-m-d H:i:s',$pro['finish_time']));
+ 		$this->display($templet); 
+    }
+    public function test(){
+        logger('测试跳转'."\n");
+        logger('携带参数：'.var_export($_GET,TRUE)."\n");
+    }
+}

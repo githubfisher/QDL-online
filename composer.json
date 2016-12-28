@@ -1,0 +1,21 @@
+{
+    "name": "githubfisher/QDL-online",
+    "description": "web site for getting dealership",
+    "type": "library",
+    "keywords": [
+        "website",
+        "dealership",
+        "thinkphp"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "fisher",
+            "email": "gooodfisher@126.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "minimum-stability": "dev"
+}
